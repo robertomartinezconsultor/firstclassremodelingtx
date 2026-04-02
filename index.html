@@ -737,6 +737,10 @@ button { cursor: pointer; }
   display: none;
 }
 
+.mobile-hotline {
+  display: none;
+}
+
 .advisor-modal {
   position: fixed;
   inset: 0;
@@ -807,6 +811,21 @@ button { cursor: pointer; }
 }
 
 .chip {
+  border-radius: 999px;
+  border: 1px solid rgba(255,255,255,0.12);
+  background: rgba(255,255,255,0.05);
+  color: var(--muted);
+  padding: 10px 14px;
+}
+
+.advisor-quick {
+  padding: 6px 18px 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.advisor-quick button {
   border-radius: 999px;
   border: 1px solid rgba(255,255,255,0.12);
   background: rgba(255,255,255,0.05);
@@ -940,6 +959,26 @@ button { cursor: pointer; }
   .form-grid {
     grid-template-columns: 1fr;
   }
+  .mobile-hotline {
+    position: fixed;
+    left: 14px;
+    right: 14px;
+    bottom: calc(146px + var(--safe-bottom));
+    z-index: 35;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 46px;
+    padding: 10px 14px;
+    border-radius: 18px;
+    background: rgba(8,13,21,0.9);
+    border: 1px solid rgba(255,255,255,0.12);
+    backdrop-filter: blur(18px);
+    color: var(--gold-2);
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+  }
   .sticky-mobile {
     position: fixed;
     left: 14px;
@@ -968,8 +1007,16 @@ button { cursor: pointer; }
     color: #111;
     border-color: transparent;
   }
+  .sticky-mobile .whatsapp-main {
+    background: #1f8f5f;
+    color: #fff;
+    border-color: transparent;
+  }
+  .sticky-mobile .secondary-action {
+    font-size: 10px;
+  }
   .footer {
-    padding-bottom: calc(156px + var(--safe-bottom));
+    padding-bottom: calc(268px + var(--safe-bottom));
   }
   .advisor-panel {
     max-height: calc(100svh - 24px);
@@ -1389,11 +1436,13 @@ button { cursor: pointer; }
   </div>
 </footer>
 
+<div class="mobile-hotline">Call or text (210) 606-5298</div>
+
 <div class="sticky-mobile">
-  <a class="primary" href="tel:2106065298">Call</a>
-  <button type="button" data-advisor-open>Ask Joe</button>
-  <a href="https://wa.me/12106065298?text=Hi%20First%20Class%20Remodeling%20TX.%20I%20would%20like%20to%20talk%20about%20my%20project." target="_blank" rel="noopener">WhatsApp</a>
-  <a href="app.html">Portal</a>
+  <a class="primary" href="tel:2106065298">Call Now</a>
+  <a class="whatsapp-main" href="https://wa.me/12106065298?text=Hi%20First%20Class%20Remodeling%20TX.%20I%20would%20like%20to%20talk%20about%20my%20project." target="_blank" rel="noopener">WhatsApp</a>
+  <button class="secondary-action" type="button" data-advisor-open>Ask Joe</button>
+  <a class="secondary-action" href="app.html">Portal</a>
 </div>
 
 <div class="advisor-modal" id="advisorModal" aria-hidden="true">
@@ -1405,6 +1454,12 @@ button { cursor: pointer; }
       </div>
       <button class="advisor-close" type="button" id="advisorClose" aria-label="Close">×</button>
     </div>
+    <div class="advisor-quick">
+      <button type="button" data-advisor-chip="Kitchen remodel">Kitchen</button>
+      <button type="button" data-advisor-chip="Bathroom remodel">Bathroom</button>
+      <button type="button" data-advisor-chip="I have rough measurements">Measurements</button>
+      <button type="button" data-advisor-chip="I want to send photos of the project">Photos</button>
+    </div>
     <div class="advisor-log" id="advisorLog"></div>
     <div class="advisor-actions">
       <a class="btn-secondary" href="tel:2106065298">Call</a>
@@ -1413,7 +1468,7 @@ button { cursor: pointer; }
     </div>
     <div class="advisor-input">
       <form id="advisorForm">
-        <textarea id="advisorInput" placeholder="Tell us about your project."></textarea>
+        <textarea id="advisorInput" placeholder="Tell Joe about your project, rough size, or photos."></textarea>
         <button type="submit">Send</button>
       </form>
     </div>
@@ -1428,6 +1483,7 @@ const modal = document.getElementById("advisorModal");
 const logEl = document.getElementById("advisorLog");
 const inputEl = document.getElementById("advisorInput");
 const advisorForm = document.getElementById("advisorForm");
+const advisorChips = document.querySelectorAll("[data-advisor-chip]");
 
 function addMsg(role, text) {
   const article = document.createElement("article");
@@ -1437,12 +1493,18 @@ function addMsg(role, text) {
   logEl.scrollTop = logEl.scrollHeight;
 }
 
+function seedAdvisor() {
+  if (logEl.children.length) return;
+  addMsg("advisor", "Hi, I'm Joe. I can help you get started with the project.");
+  setTimeout(() => {
+    addMsg("advisor", "Is this more of a kitchen project, a bathroom project, or both? If you already have rough measurements or photos, send them here.");
+  }, 180);
+}
+
 function openAdvisor() {
   modal.classList.add("open");
   modal.setAttribute("aria-hidden", "false");
-  if (!logEl.children.length) {
-    addMsg("advisor", "Hi, I'm Joe. I can help you get started. Is this a kitchen project, a bathroom project, or both?");
-  }
+  seedAdvisor();
   setTimeout(() => inputEl.focus(), 80);
 }
 
@@ -1535,8 +1597,23 @@ function reply() {
   return `${parts.join(" ").trim()}\n\nI can point you to the consultation form now, or you can call or WhatsApp the team and keep it moving today.`.trim();
 }
 
+function sendAdvisorMessage(value) {
+  const clean = value.trim();
+  if (!clean) return;
+  addMsg("user", clean);
+  extract(clean);
+  addMsg("advisor", reply().replace(/\n/g, "<br>"));
+}
+
 document.querySelectorAll("[data-advisor-open]").forEach((node) => {
   node.addEventListener("click", openAdvisor);
+});
+
+advisorChips.forEach((chip) => {
+  chip.addEventListener("click", () => {
+    openAdvisor();
+    sendAdvisorMessage(chip.dataset.advisorChip || chip.textContent || "");
+  });
 });
 
 document.getElementById("advisorClose").addEventListener("click", closeAdvisor);
@@ -1569,10 +1646,8 @@ advisorForm.addEventListener("submit", (event) => {
   event.preventDefault();
   const value = inputEl.value.trim();
   if (!value) return;
-  addMsg("user", value);
-  extract(value);
   inputEl.value = "";
-  addMsg("advisor", reply().replace(/\n/g, "<br>"));
+  sendAdvisorMessage(value);
 });
 
 window.addEventListener("keydown", (event) => {
