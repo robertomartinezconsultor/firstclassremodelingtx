@@ -902,7 +902,7 @@ button { cursor: pointer; }
         <aside class="ask-juan-card">
           <div class="juan-badge">J</div>
           <h2>Need help sizing the room?</h2>
-          <p>Juan can help you gather the rough measurements and project details before the design visit.</p>
+          <p>Joe can help you gather the rough measurements and project details before the design visit.</p>
           <button class="btn" type="button" data-advisor-open style="width:100%">Open Chat</button>
         </aside>
       </div>
@@ -1158,7 +1158,7 @@ const advisorForm = document.getElementById("advisorForm");
 function addMsg(role, text) {
   const article = document.createElement("article");
   article.className = "msg" + (role === "user" ? " user" : "");
-  article.innerHTML = `<span class="msg-label">${role === "user" ? "You" : "Juan"}</span>${text}`;
+  article.innerHTML = `<span class="msg-label">${role === "user" ? "You" : "Joe"}</span>${text}`;
   logEl.appendChild(article);
   logEl.scrollTop = logEl.scrollHeight;
 }
@@ -1167,7 +1167,7 @@ function openAdvisor() {
   modal.classList.add("open");
   modal.setAttribute("aria-hidden", "false");
   if (!logEl.children.length) {
-    addMsg("advisor", "Hi, I'm Juan. I can help you get started. Is this a kitchen project, a bathroom project, or both?");
+    addMsg("advisor", "Hi, I'm Joe. I can help you get started. Is this a kitchen project, a bathroom project, or both?");
   }
   setTimeout(() => inputEl.focus(), 80);
 }
