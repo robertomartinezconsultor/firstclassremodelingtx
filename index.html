@@ -327,6 +327,84 @@ button { cursor: pointer; }
   letter-spacing: 0.1em;
 }
 
+.hero-visual-strip {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+  margin-top: 18px;
+  max-width: 760px;
+}
+
+.hero-visual-card {
+  position: relative;
+  overflow: hidden;
+  min-height: 210px;
+  border-radius: 24px;
+  background: #08111c;
+  border: 1px solid rgba(255,255,255,0.12);
+  box-shadow: var(--shadow);
+}
+
+.hero-visual-card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(9,17,28,0.04) 0%, rgba(9,17,28,0.28) 44%, rgba(9,17,28,0.88) 100%);
+  pointer-events: none;
+}
+
+.hero-visual-card img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform: scale(1.02);
+}
+
+.hero-visual-copy {
+  position: absolute;
+  right: 18px;
+  bottom: 16px;
+  left: 18px;
+  z-index: 1;
+  display: grid;
+  gap: 4px;
+}
+
+.hero-visual-copy strong {
+  font-family: "Cormorant Garamond", serif;
+  font-size: 28px;
+  line-height: 0.95;
+}
+
+.hero-visual-copy span {
+  color: rgba(246,243,238,0.82);
+  font-size: 13px;
+  line-height: 1.55;
+}
+
+.hero-brand-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 14px;
+  max-width: 760px;
+}
+
+.hero-brand-chip {
+  display: inline-flex;
+  align-items: center;
+  min-height: 34px;
+  padding: 0 12px;
+  border-radius: 999px;
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.08);
+  color: var(--muted);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
 .hero-proof {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -1083,6 +1161,10 @@ button { cursor: pointer; }
     flex-direction: column;
     align-items: flex-start;
   }
+  .hero-visual-strip {
+    grid-template-columns: 1fr;
+    max-width: 520px;
+  }
   .detail-card:first-child .detail-media img {
     aspect-ratio: 4 / 3;
   }
@@ -1110,6 +1192,12 @@ button { cursor: pointer; }
   }
   .hero-copy p {
     font-size: 16px;
+  }
+  .hero-visual-card {
+    min-height: 180px;
+  }
+  .hero-visual-copy strong {
+    font-size: 24px;
   }
   .hero-proof {
     grid-template-columns: 1fr;
@@ -1235,6 +1323,28 @@ button { cursor: pointer; }
           <div class="trust-links">
             <a href="https://www.facebook.com/firstclassremodelingsatx" target="_blank" rel="noopener">Facebook Projects</a>
             <a href="https://www.google.com/maps/search/?api=1&query=First+Class+Remodeling+TX+San+Antonio+TX" target="_blank" rel="noopener">Google Reviews</a>
+          </div>
+          <div class="hero-visual-strip">
+            <article class="hero-visual-card">
+              <img src="images/project-hero-still.png" alt="Bathroom remodel detail with warm tile, soft lighting, and refined finish work in San Antonio.">
+              <div class="hero-visual-copy">
+                <strong>Bathrooms with presence.</strong>
+                <span>Warm tile, calm lighting, and cleaner finish work you can feel right away.</span>
+              </div>
+            </article>
+            <article class="hero-visual-card">
+              <img src="images/project-showcase-still.png" alt="Vanity and fixture detail showing refined stone, hardware, and bathroom styling.">
+              <div class="hero-visual-copy">
+                <strong>Details that read expensive.</strong>
+                <span>Stone, fixtures, mirrors, and metals working together instead of fighting for attention.</span>
+              </div>
+            </article>
+          </div>
+          <div class="hero-brand-row" aria-label="Brands and systems often used">
+            <span class="hero-brand-chip">Schluter</span>
+            <span class="hero-brand-chip">Sherwin-Williams</span>
+            <span class="hero-brand-chip">Kohler</span>
+            <span class="hero-brand-chip">James Hardie</span>
           </div>
           <div class="hero-actions" style="margin-top:18px">
             <a class="header-link" href="app.html">Current clients can open the client portal</a>
