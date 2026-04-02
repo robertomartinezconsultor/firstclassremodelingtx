@@ -297,6 +297,28 @@ button { cursor: pointer; }
   max-width: 620px;
 }
 
+.trust-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 18px;
+}
+
+.trust-links a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 42px;
+  padding: 0 16px;
+  border-radius: 999px;
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.1);
+  color: var(--text);
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
 .hero-proof {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -1070,6 +1092,10 @@ button { cursor: pointer; }
             <button class="btn-ghost" type="button" data-advisor-open>Ask Joe</button>
           </div>
           <div class="hero-note">Some projects can start moving in as little as 5 days, depending on scope, approvals, and material availability.</div>
+          <div class="trust-links">
+            <a href="https://www.facebook.com/firstclassremodelingsatx" target="_blank" rel="noopener">Facebook</a>
+            <a href="https://www.google.com/maps/search/?api=1&query=First+Class+Remodeling+TX+San+Antonio+TX" target="_blank" rel="noopener">Google</a>
+          </div>
           <div class="hero-actions" style="margin-top:18px">
             <a class="header-link" href="app.html">Current clients can open the client portal</a>
           </div>
@@ -1336,6 +1362,20 @@ button { cursor: pointer; }
                   <span>Quick message handoff</span>
                 </div>
                 <span>Send</span>
+              </a>
+              <a class="contact-link" href="https://www.facebook.com/firstclassremodelingsatx" target="_blank" rel="noopener">
+                <div>
+                  <strong>Facebook</strong>
+                  <span>See more projects</span>
+                </div>
+                <span>Open</span>
+              </a>
+              <a class="contact-link" href="https://www.google.com/maps/search/?api=1&query=First+Class+Remodeling+TX+San+Antonio+TX" target="_blank" rel="noopener">
+                <div>
+                  <strong>Google</strong>
+                  <span>Open profile and reviews</span>
+                </div>
+                <span>Open</span>
               </a>
             </div>
           </article>
