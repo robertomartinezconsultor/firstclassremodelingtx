@@ -3,11 +3,11 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>Kitchen Remodel San Antonio | Custom Kitchens & Bathrooms | First Class Remodeling TX</title>
-<meta name="description" content="Kitchen remodel and bathroom remodel services in San Antonio with custom cabinetry, better layout, refined finishes, and a cleaner process from first call to final detail.">
+<title>Kitchen Remodel San Antonio | Bathrooms, Closets & Outdoor Kitchens | First Class Remodeling TX</title>
+<meta name="description" content="San Antonio kitchen remodel, bathroom remodel, custom closets, and outdoor kitchen work with better layout, stronger materials, refined finishes, and a cleaner process from first call to final detail.">
 <meta name="theme-color" content="#0b1320">
 <meta property="og:title" content="First Class Remodeling TX">
-<meta property="og:description" content="San Antonio kitchen and bathroom remodeling with custom design, refined finishes, and a smoother process from start to finish.">
+<meta property="og:description" content="San Antonio kitchens, bathrooms, closets, and outdoor cooking areas shaped with stronger design, refined finishes, and a smoother remodeling process.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://firstclassremodelingtx.com/">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -366,13 +366,14 @@ button { cursor: pointer; }
 
 .services-grid,
 .process-grid,
-.contact-grid {
+.contact-grid,
+.app-grid {
   display: grid;
   gap: 18px;
 }
 
 .services-grid {
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns: repeat(2, minmax(0, 1fr));
 }
 
 .service-card,
@@ -413,6 +414,11 @@ button { cursor: pointer; }
 
 .process-grid {
   grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.app-grid {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  margin-bottom: 18px;
 }
 
 .process-num {
@@ -465,6 +471,38 @@ button { cursor: pointer; }
   margin: 0 0 16px;
   color: var(--muted);
   line-height: 1.75;
+}
+
+.app-callout {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 22px;
+  border-radius: 28px;
+  padding: 26px;
+  background: linear-gradient(180deg, rgba(255,255,255,0.08), rgba(255,255,255,0.05));
+  border: 1px solid rgba(255,255,255,0.1);
+  box-shadow: var(--shadow);
+}
+
+.app-callout strong {
+  display: block;
+  margin-bottom: 8px;
+  font-family: "Cormorant Garamond", serif;
+  font-size: 36px;
+}
+
+.app-callout p {
+  margin: 0;
+  max-width: 760px;
+  color: var(--muted);
+  line-height: 1.75;
+}
+
+.app-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
 }
 
 .contact-grid {
@@ -759,10 +797,15 @@ button { cursor: pointer; }
   .hero-grid,
   .contact-grid,
   .services-grid,
-  .process-grid {
+  .process-grid,
+  .app-grid {
     grid-template-columns: 1fr;
   }
   .hero-copy h1 { max-width: 12ch; }
+  .app-callout {
+    flex-direction: column;
+    align-items: flex-start;
+  }
 }
 
 @media (max-width: 720px) {
@@ -771,7 +814,6 @@ button { cursor: pointer; }
     padding-top: max(10px, var(--safe-top));
     padding-bottom: 10px;
   }
-  .header-actions .header-link,
   .header-actions .btn-secondary {
     display: none;
   }
@@ -805,7 +847,7 @@ button { cursor: pointer; }
     bottom: calc(14px + var(--safe-bottom));
     z-index: 35;
     display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 10px;
   }
   .sticky-mobile a,
@@ -827,7 +869,7 @@ button { cursor: pointer; }
     border-color: transparent;
   }
   .footer {
-    padding-bottom: calc(104px + var(--safe-bottom));
+    padding-bottom: calc(156px + var(--safe-bottom));
   }
   .advisor-panel {
     max-height: calc(100svh - 24px);
@@ -853,10 +895,11 @@ button { cursor: pointer; }
         <a href="#services">Services</a>
         <a href="#process">Process</a>
         <a href="#videos">Video</a>
+        <a href="#client-app">Client App</a>
         <a href="#contact">Contact</a>
       </nav>
       <div class="header-actions">
-        <a class="header-link" href="app.html">Client Portal</a>
+        <a class="header-link" href="app.html">Client App</a>
         <a class="btn-secondary" href="tel:2106065298">Call Now</a>
       </div>
     </div>
@@ -881,7 +924,7 @@ button { cursor: pointer; }
           </div>
           <div class="hero-note">Some projects can start moving in as little as 5 days, depending on scope, approvals, and material availability.</div>
           <div class="hero-actions" style="margin-top:18px">
-            <a class="header-link" href="app.html">Current clients can open the portal</a>
+            <a class="header-link" href="app.html">Current clients can open the client app</a>
           </div>
           <div class="hero-proof">
             <div class="proof-card">
@@ -889,12 +932,12 @@ button { cursor: pointer; }
               <span>Years in business serving San Antonio and nearby communities.</span>
             </div>
             <div class="proof-card">
-              <strong>Custom Kitchens</strong>
-              <span>Cabinetry, stone, lighting, and layout choices shaped around how the home should feel.</span>
+              <strong>Kitchens + Baths</strong>
+              <span>Cabinetry, tile, stone, lighting, and layout choices shaped around how the home should feel.</span>
             </div>
             <div class="proof-card">
-              <strong>Bathrooms With Presence</strong>
-              <span>Cleaner lines, stronger materials, and details that make the room feel finished and intentional.</span>
+              <strong>Closets + Outdoor</strong>
+              <span>Storage and outdoor cooking spaces handled with the same level of finish, proportion, and care.</span>
             </div>
           </div>
         </div>
@@ -913,24 +956,29 @@ button { cursor: pointer; }
     <div class="shell">
       <div class="section-header">
         <span class="eyebrow">What We Build</span>
-        <h2>Kitchens and bathrooms that feel tailored to the home.</h2>
-        <p>The focus is not volume work. It is cleaner design, better materials, and rooms that feel balanced, intentional, and worth walking into every day.</p>
+        <h2>Spaces shaped by more than 15 years of hands-on remodeling work.</h2>
+        <p>First Class is built around the rooms homeowners notice first and use the hardest: kitchens, bathrooms, closets, and outdoor cooking areas. The goal is a home that feels more considered, more complete, and better finished in every detail.</p>
       </div>
       <div class="services-grid">
         <article class="service-card">
           <span class="service-tag">Custom Kitchens</span>
           <h3>Kitchens shaped around cabinetry, flow, and finish.</h3>
-          <p>From full layout updates to statement islands and cabinet packages, the goal is a kitchen that feels strong, calm, and complete.</p>
+          <p>From full layout updates to statement islands and cabinet packages, the goal is a kitchen that feels strong, balanced, and worth gathering in.</p>
         </article>
         <article class="service-card">
           <span class="service-tag">Bathrooms</span>
           <h3>Bathrooms with cleaner lines and stronger detail.</h3>
-          <p>Showers, vanities, tile, lighting, and surfaces selected to make the room feel more resolved and better put together.</p>
+          <p>Showers, vanities, tile, lighting, and surfaces selected to make the room feel calmer, sharper, and more pulled together.</p>
         </article>
         <article class="service-card">
-          <span class="service-tag">Design Details</span>
-          <h3>The details that separate a finished room from an average one.</h3>
-          <p>Hardware, stone selection, trim, texture, lighting, and proportion all matter when the client notices quality immediately.</p>
+          <span class="service-tag">Closets</span>
+          <h3>Closets that bring order without looking overbuilt.</h3>
+          <p>Storage, shelving, drawer layouts, and finish details shaped to make daily use feel easier and more refined.</p>
+        </article>
+        <article class="service-card">
+          <span class="service-tag">Outdoor Cooking</span>
+          <h3>Outdoor kitchens and grill areas that feel built in.</h3>
+          <p>Cooking zones, counters, stonework, and integrated layouts designed to feel like part of the home, not an afterthought.</p>
         </article>
       </div>
     </div>
@@ -990,6 +1038,48 @@ button { cursor: pointer; }
     </div>
   </section>
 
+  <section class="section" id="client-app">
+    <div class="shell">
+      <div class="section-header">
+        <span class="eyebrow">Client App</span>
+        <h2>Current clients can keep the project in one place.</h2>
+        <p>The client app is for active projects. It keeps project progress, site photos, payment records, files, approvals, and updates together so clients can check the job without chasing text threads or scattered links.</p>
+      </div>
+      <div class="app-grid">
+        <article class="process-card">
+          <span class="service-tag">Progress</span>
+          <h3>See what phase the project is in.</h3>
+          <p>Clients can open the overview, check what is active now, and see what comes next without waiting around for a callback.</p>
+        </article>
+        <article class="process-card">
+          <span class="service-tag">Photos</span>
+          <h3>Review site photos as the work moves.</h3>
+          <p>Project photos and visual updates stay in one place, which makes it easier to follow the work from the phone.</p>
+        </article>
+        <article class="process-card">
+          <span class="service-tag">Payments</span>
+          <h3>Keep payment records easier to follow.</h3>
+          <p>Clients can review posted payment items, invoice-related updates, and billing status inside the same client-facing app.</p>
+        </article>
+        <article class="process-card">
+          <span class="service-tag">Files</span>
+          <h3>Open files and approvals faster.</h3>
+          <p>Documents, approvals, PDFs, and project notes are easier to find when they live in one secure project portal.</p>
+        </article>
+      </div>
+      <article class="app-callout">
+        <div>
+          <strong>Add the client app to your iPhone.</strong>
+          <p>This is not an App Store download. Open the client app in Safari, then tap Share and Add to Home Screen. First Class gives each client a secure project code so they can open their own project dashboard from the phone.</p>
+        </div>
+        <div class="app-actions">
+          <a class="btn" href="app.html">Open Client App</a>
+          <a class="btn-secondary" href="app.html?panel=install">Install on iPhone</a>
+        </div>
+      </article>
+    </div>
+  </section>
+
   <section class="section" id="contact">
     <div class="shell">
       <div class="section-header">
@@ -1029,14 +1119,21 @@ button { cursor: pointer; }
 
           <article class="contact-panel">
             <h3>Already a client?</h3>
-            <p>Open the portal for updates, files, payments, and project progress.</p>
+            <p>Open the client app for project progress, site photos, payment records, files, and updates. On iPhone, clients can also add it to the Home Screen.</p>
             <div class="contact-link-row">
               <a class="contact-link" href="app.html">
                 <div>
-                  <strong>Client Portal</strong>
+                  <strong>Open Client App</strong>
                   <span>Open launcher</span>
                 </div>
                 <span>Go</span>
+              </a>
+              <a class="contact-link" href="app.html?panel=install">
+                <div>
+                  <strong>Install on iPhone</strong>
+                  <span>Add to Home Screen</span>
+                </div>
+                <span>Open</span>
               </a>
             </div>
           </article>
@@ -1120,6 +1217,7 @@ button { cursor: pointer; }
   <a class="primary" href="tel:2106065298">Call</a>
   <button type="button" data-advisor-open>Ask Joe</button>
   <a href="https://wa.me/12106065298?text=Hi%20First%20Class%20Remodeling%20TX.%20I%20would%20like%20to%20talk%20about%20my%20project." target="_blank" rel="noopener">WhatsApp</a>
+  <a href="app.html">Client App</a>
 </div>
 
 <div class="advisor-modal" id="advisorModal" aria-hidden="true">
