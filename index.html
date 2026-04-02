@@ -549,15 +549,32 @@ button { cursor: pointer; }
 }
 
 .details-grid {
-  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-columns: minmax(0, 1.08fr) minmax(0, 0.92fr);
+  align-items: start;
 }
 
 .detail-card {
+  position: relative;
   overflow: hidden;
   border-radius: 30px;
-  background: rgba(255,255,255,0.05);
+  background: linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.04));
   border: 1px solid rgba(255,255,255,0.08);
   box-shadow: var(--shadow);
+}
+
+.detail-media {
+  position: relative;
+  overflow: hidden;
+  background: #08111c;
+}
+
+.detail-media::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(180deg, rgba(9,17,28,0.06) 0%, rgba(9,17,28,0.14) 35%, rgba(9,17,28,0.78) 100%);
+  pointer-events: none;
 }
 
 .detail-card img {
@@ -565,10 +582,62 @@ button { cursor: pointer; }
   width: 100%;
   aspect-ratio: 4 / 3;
   object-fit: cover;
+  transform: scale(1.01);
+  transition: transform 700ms ease;
+}
+
+.detail-card:first-child .detail-media img {
+  aspect-ratio: 4 / 4.8;
+}
+
+.detail-card:hover img {
+  transform: scale(1.045);
+}
+
+.detail-flag {
+  position: absolute;
+  top: 18px;
+  left: 18px;
+  z-index: 2;
+  display: inline-flex;
+  align-items: center;
+  min-height: 34px;
+  padding: 0 12px;
+  border-radius: 999px;
+  background: rgba(9,17,28,0.58);
+  border: 1px solid rgba(255,255,255,0.12);
+  backdrop-filter: blur(14px);
+  color: var(--text);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.detail-meta {
+  position: absolute;
+  right: 18px;
+  bottom: 18px;
+  left: 18px;
+  z-index: 2;
+  display: grid;
+  gap: 4px;
+}
+
+.detail-meta strong {
+  font-family: "Cormorant Garamond", serif;
+  font-size: 32px;
+  line-height: 0.95;
+  color: #fff;
+}
+
+.detail-meta span {
+  color: rgba(246,243,238,0.78);
+  font-size: 13px;
+  letter-spacing: 0.04em;
 }
 
 .detail-copy {
-  padding: 22px;
+  padding: 24px 24px 26px;
 }
 
 .detail-copy h3 {
@@ -602,28 +671,57 @@ button { cursor: pointer; }
 }
 
 .brand-grid {
-  grid-template-columns: repeat(7, minmax(0, 1fr));
+  grid-template-columns: repeat(4, minmax(0, 1fr));
 }
 
 .brand-pill {
   display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  min-height: 112px;
+  padding: 18px 18px 16px;
+  border-radius: 24px;
+  background:
+    linear-gradient(180deg, rgba(255,255,255,0.09), rgba(255,255,255,0.04)),
+    linear-gradient(135deg, rgba(215,180,108,0.05), rgba(111,151,203,0.04));
+  border: 1px solid rgba(255,255,255,0.1);
+  color: var(--text);
+  text-align: left;
+  box-shadow: var(--shadow);
+}
+
+.brand-kind {
+  display: inline-flex;
   align-items: center;
-  justify-content: center;
-  min-height: 64px;
-  padding: 12px 14px;
-  border-radius: 20px;
+  min-height: 28px;
+  padding: 0 10px;
+  border-radius: 999px;
   background: rgba(255,255,255,0.05);
   border: 1px solid rgba(255,255,255,0.08);
-  color: var(--text);
-  font-size: 13px;
+  color: var(--muted);
+  font-size: 10px;
   font-weight: 700;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
-  text-align: center;
+}
+
+.brand-name {
+  display: block;
+  font-family: "Cormorant Garamond", serif;
+  font-size: 30px;
+  line-height: 0.95;
+  letter-spacing: 0.02em;
+}
+
+.brand-name-tight {
+  font-size: 26px;
 }
 
 .brand-note {
   margin-top: 16px;
+  max-width: 880px;
   color: var(--muted-2);
   font-size: 12px;
   line-height: 1.7;
@@ -985,6 +1083,9 @@ button { cursor: pointer; }
     flex-direction: column;
     align-items: flex-start;
   }
+  .detail-card:first-child .detail-media img {
+    aspect-ratio: 4 / 3;
+  }
 }
 
 @media (max-width: 720px) {
@@ -1181,14 +1282,38 @@ button { cursor: pointer; }
         <p>Depending on the project, First Class may work with products and systems such as USG Sheetrock drywall, James Hardie siding products, Schluter shower systems, RedGard waterproofing, Sherwin-Williams paint products, and fixture brands like Kohler, Delta, and Moen.</p>
       </div>
       <div class="brand-grid">
-        <div class="brand-pill">USG Sheetrock</div>
-        <div class="brand-pill">James Hardie</div>
-        <div class="brand-pill">Schluter</div>
-        <div class="brand-pill">RedGard</div>
-        <div class="brand-pill">Sherwin-Williams</div>
-        <div class="brand-pill">Kohler</div>
-        <div class="brand-pill">Delta</div>
-        <div class="brand-pill">Moen</div>
+        <div class="brand-pill">
+          <span class="brand-kind">Drywall</span>
+          <strong class="brand-name">USG Sheetrock</strong>
+        </div>
+        <div class="brand-pill">
+          <span class="brand-kind">Exterior</span>
+          <strong class="brand-name">James Hardie</strong>
+        </div>
+        <div class="brand-pill">
+          <span class="brand-kind">Shower Systems</span>
+          <strong class="brand-name">Schluter</strong>
+        </div>
+        <div class="brand-pill">
+          <span class="brand-kind">Waterproofing</span>
+          <strong class="brand-name">RedGard</strong>
+        </div>
+        <div class="brand-pill">
+          <span class="brand-kind">Paint</span>
+          <strong class="brand-name brand-name-tight">Sherwin-Williams</strong>
+        </div>
+        <div class="brand-pill">
+          <span class="brand-kind">Fixtures</span>
+          <strong class="brand-name">Kohler</strong>
+        </div>
+        <div class="brand-pill">
+          <span class="brand-kind">Faucets</span>
+          <strong class="brand-name">Delta</strong>
+        </div>
+        <div class="brand-pill">
+          <span class="brand-kind">Fixtures</span>
+          <strong class="brand-name">Moen</strong>
+        </div>
       </div>
       <div class="brand-note">Brand names are used only to describe products and systems commonly installed when they fit the job. All trademarks remain the property of their respective owners, and no endorsement or affiliation is implied.</div>
     </div>
@@ -1251,14 +1376,28 @@ button { cursor: pointer; }
       </div>
       <div class="details-grid">
         <article class="detail-card">
-          <img src="images/project-hero-still.png" alt="Custom bathroom remodel in San Antonio with marble-look tile, warm shower lighting, and refined finish details.">
+          <div class="detail-media">
+            <img src="images/project-hero-still.png" alt="Custom bathroom remodel in San Antonio with marble-look tile, warm shower lighting, and refined finish details.">
+            <div class="detail-flag">San Antonio Bathroom Detail</div>
+            <div class="detail-meta">
+              <strong>Warm stone. Clean lines.</strong>
+              <span>Tile, trim, lighting, and proportion working together.</span>
+            </div>
+          </div>
           <div class="detail-copy">
             <h3>Bathrooms built around material, light, and proportion.</h3>
             <p>Shower walls, tile pattern, trim lines, niches, fixtures, and tone all have to work together if the room is going to feel calm, clean, and complete.</p>
           </div>
         </article>
         <article class="detail-card">
-          <img src="images/project-showcase-still.png" alt="Vanity and countertop detail from a refined bathroom remodel with warm metal fixtures and polished stone surfaces.">
+          <div class="detail-media">
+            <img src="images/project-showcase-still.png" alt="Vanity and countertop detail from a refined bathroom remodel with warm metal fixtures and polished stone surfaces.">
+            <div class="detail-flag">Fixture + Vanity Finish</div>
+            <div class="detail-meta">
+              <strong>What people notice first.</strong>
+              <span>Stone edges, metals, mirrors, and hardware that feel considered.</span>
+            </div>
+          </div>
           <div class="detail-copy">
             <h3>The finish details are what make the room feel complete.</h3>
             <p>Stone edges, faucet selection, mirror lighting, vanity scale, and hardware are the things homeowners notice every single day. That is where average work separates from memorable work.</p>
