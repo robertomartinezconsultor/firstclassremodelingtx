@@ -542,7 +542,8 @@ button { cursor: pointer; }
 
 .details-grid,
 .modern-grid,
-.area-grid {
+.area-grid,
+.brand-grid {
   display: grid;
   gap: 18px;
 }
@@ -598,6 +599,27 @@ button { cursor: pointer; }
   border: 1px solid rgba(255,255,255,0.08);
   color: var(--muted);
   font-size: 13px;
+}
+
+.brand-grid {
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+}
+
+.brand-pill {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 64px;
+  padding: 12px 14px;
+  border-radius: 20px;
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.08);
+  color: var(--text);
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  text-align: center;
 }
 
 .app-callout {
@@ -947,7 +969,8 @@ button { cursor: pointer; }
   .app-grid,
   .details-grid,
   .modern-grid,
-  .area-grid {
+  .area-grid,
+  .brand-grid {
     grid-template-columns: 1fr;
   }
   .hero-copy h1 { max-width: 12ch; }
@@ -1139,6 +1162,25 @@ button { cursor: pointer; }
             <a class="btn-ghost" href="https://wa.me/12106065298?text=Hi%20First%20Class%20Remodeling%20TX.%20I%20want%20to%20send%20photos%20of%20my%20project." target="_blank" rel="noopener">WhatsApp</a>
           </div>
         </aside>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="shell">
+      <div class="section-header">
+        <span class="eyebrow">Brands & Systems We Work With</span>
+        <h2>Materials and fixture brands homeowners already know.</h2>
+        <p>From drywall and waterproofing systems to tile prep and finish fixtures, these are some of the brands and product lines commonly used across kitchen, bathroom, closet, and outdoor projects.</p>
+      </div>
+      <div class="brand-grid">
+        <div class="brand-pill">USG Sheetrock</div>
+        <div class="brand-pill">James Hardie</div>
+        <div class="brand-pill">Schluter</div>
+        <div class="brand-pill">RedGard</div>
+        <div class="brand-pill">Kohler</div>
+        <div class="brand-pill">Delta</div>
+        <div class="brand-pill">Moen</div>
       </div>
     </div>
   </section>
