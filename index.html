@@ -877,7 +877,7 @@ button { cursor: pointer; }
           <div class="hero-actions">
             <a class="btn" href="#contact">Book Consultation</a>
             <a class="btn-secondary" href="#services">See Kitchens & Baths</a>
-            <button class="btn-ghost" type="button" data-advisor-open>Questions? Ask Juan</button>
+            <button class="btn-ghost" type="button" data-advisor-open>Chat</button>
           </div>
           <div class="hero-note">From the first design conversation to the final finish, the focus stays on style, function, and a smoother remodeling experience.</div>
           <div class="hero-actions" style="margin-top:18px">
@@ -901,14 +901,9 @@ button { cursor: pointer; }
 
         <aside class="ask-juan-card">
           <div class="juan-badge">J</div>
-          <h2>Need a quick answer?</h2>
-          <p>Juan is here if you want a fast, friendly answer before booking. He helps with project questions and points you to the right next step.</p>
-          <div class="juan-list">
-            <span>Ask about kitchens, bathrooms, finishes, or next steps</span>
-            <span>Share your area and timing</span>
-            <span>Then move into a call or consultation when you're ready</span>
-          </div>
-          <button class="btn" type="button" data-advisor-open style="width:100%">Chat With Juan</button>
+          <h2>Project questions?</h2>
+          <p>Juan is there if you want a quick answer before booking your consultation.</p>
+          <button class="btn" type="button" data-advisor-open style="width:100%">Open Chat</button>
         </aside>
       </div>
     </div>
@@ -1098,7 +1093,7 @@ button { cursor: pointer; }
             </div>
             <div class="hero-actions" style="margin:18px 0 0">
               <button class="btn" type="submit" id="contactSubmit">Send Request</button>
-              <button class="btn-secondary" type="button" data-advisor-open>Quick Question First?</button>
+              <button class="btn-secondary" type="button" data-advisor-open>Open Chat</button>
             </div>
             <div class="form-note">Detailed scope and pricing are handled through the actual consultation process, not public website copy.</div>
             <div class="form-status" id="formStatus" aria-live="polite"></div>
@@ -1123,7 +1118,7 @@ button { cursor: pointer; }
 
 <div class="sticky-mobile">
   <a class="primary" href="tel:2106065298">Call</a>
-  <button type="button" data-advisor-open>Ask Juan</button>
+  <button type="button" data-advisor-open>Chat</button>
   <a href="https://wa.me/12106065298?text=Hi%20First%20Class%20Remodeling%20TX.%20I%20would%20like%20to%20talk%20about%20my%20project." target="_blank" rel="noopener">WhatsApp</a>
 </div>
 
@@ -1131,15 +1126,10 @@ button { cursor: pointer; }
   <div class="advisor-panel" role="dialog" aria-modal="true" aria-labelledby="advisorTitle">
     <div class="advisor-head">
       <div>
-        <strong id="advisorTitle">Ask Juan</strong>
-        <span>Quick help before you book your kitchen or bathroom consultation.</span>
+        <strong id="advisorTitle">Chat</strong>
+        <span>Quick project questions, answered simply.</span>
       </div>
       <button class="advisor-close" type="button" id="advisorClose" aria-label="Close">×</button>
-    </div>
-    <div class="advisor-chips">
-      <button class="chip" type="button" data-seed="I want to remodel my kitchen in Stone Oak.">Kitchen</button>
-      <button class="chip" type="button" data-seed="I want to update my bathroom in Alamo Heights.">Bathroom</button>
-      <button class="chip" type="button" data-seed="I want help choosing the style for my kitchen remodel in San Antonio.">Style Help</button>
     </div>
     <div class="advisor-log" id="advisorLog"></div>
     <div class="advisor-actions">
@@ -1149,7 +1139,7 @@ button { cursor: pointer; }
     </div>
     <div class="advisor-input">
       <form id="advisorForm">
-        <textarea id="advisorInput" placeholder="Tell Juan about the kitchen or bathroom you want to remodel, your area, and when you'd like to get started."></textarea>
+        <textarea id="advisorInput" placeholder="Tell us about your project."></textarea>
         <button type="submit">Send</button>
       </form>
     </div>
@@ -1177,7 +1167,7 @@ function openAdvisor() {
   modal.classList.add("open");
   modal.setAttribute("aria-hidden", "false");
   if (!logEl.children.length) {
-    addMsg("advisor", "Hey, I'm Juan. Happy to help. Are you planning a kitchen remodel, a bathroom remodel, or still narrowing it down?");
+    addMsg("advisor", "Hi, I'm Juan. How can I help with your project?");
   }
   setTimeout(() => inputEl.focus(), 80);
 }
@@ -1265,13 +1255,6 @@ document.getElementById("advisorClose").addEventListener("click", closeAdvisor);
 modal.addEventListener("click", (event) => {
   if (event.target === modal) closeAdvisor();
 });
-document.querySelectorAll("[data-seed]").forEach((node) => {
-  node.addEventListener("click", () => {
-    inputEl.value = node.getAttribute("data-seed");
-    advisorForm.dispatchEvent(new Event("submit", { bubbles: true, cancelable: true }));
-  });
-});
-
 document.getElementById("openConsultation").addEventListener("click", () => {
   const fullName = document.getElementById("fullName");
   const phone = document.getElementById("phone");
@@ -1287,7 +1270,7 @@ document.getElementById("openConsultation").addEventListener("click", () => {
   if (state.area) area.value = state.area;
   if (state.timeline) timeline.value = state.timeline;
   if (!message.value) {
-    message.value = "Website advisor notes: client spoke with Juan before opening the consultation form.";
+    message.value = "Website chat notes included.";
   }
   closeAdvisor();
   document.getElementById("contact").scrollIntoView({ behavior: "smooth", block: "start" });
