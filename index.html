@@ -1230,26 +1230,32 @@ button { cursor: pointer; }
   }
   .sticky-mobile {
     position: fixed;
-    left: 14px;
-    right: 14px;
-    bottom: calc(14px + var(--safe-bottom));
+    left: 12px;
+    right: 12px;
+    bottom: calc(12px + var(--safe-bottom));
     z-index: 35;
     display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 10px;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
   }
   .sticky-mobile a,
   .sticky-mobile button {
-    min-height: 54px;
-    border-radius: 18px;
-    border: 1px solid rgba(255,255,255,0.12);
-    background: rgba(8,13,21,0.88);
+    min-height: 48px;
+    border-radius: 14px;
+    border: 1px solid rgba(255,255,255,0.15);
+    background: rgba(8,13,21,0.92);
     backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
     color: var(--text);
-    font-size: 11px;
+    font-size: 12px;
     font-weight: 700;
     text-transform: uppercase;
-    letter-spacing: 0.1em;
+    letter-spacing: 0.08em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    cursor: pointer;
   }
   .sticky-mobile .primary {
     background: linear-gradient(135deg, var(--gold-2), var(--gold));
@@ -1262,7 +1268,9 @@ button { cursor: pointer; }
     border-color: transparent;
   }
   .sticky-mobile .secondary-action {
-    font-size: 10px;
+    font-size: 11px;
+    color: var(--gold);
+    border-color: rgba(215,180,108,0.3);
   }
   .footer {
     padding-bottom: calc(268px + var(--safe-bottom));
