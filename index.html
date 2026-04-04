@@ -2011,12 +2011,39 @@ function reply() {
   return `${parts.join(" ").trim()}\n\nI can point you to the consultation form now, or you can call or WhatsApp the team and keep it moving today.`.trim();
 }
 
+const chatHistory = [];
+const JOE_API = "https://cabinets-liz-soonest-quarter.trycloudflare.com/api/joe/chat";
+
 function sendAdvisorMessage(value) {
   const clean = value.trim();
   if (!clean) return;
   addMsg("user", clean);
+  chatHistory.push("Customer: " + clean);
+
+  // Show typing indicator
+  const typing = document.createElement("article");
+  typing.className = "msg";
+  typing.innerHTML = '<span class="msg-label">Joe</span><em style="color:var(--muted)">typing...</em>';
+  logEl.appendChild(typing);
+  logEl.scrollTop = logEl.scrollHeight;
+
+  // Also extract locally for form pre-fill
   extract(clean);
-  addMsg("advisor", reply().replace(/\n/g, "<br>"));
+
+  // Call AI API
+  fetch(JOE_API + "?message=" + encodeURIComponent(clean) + "&history=" + encodeURIComponent(chatHistory.slice(-6).join("\n")))
+    .then(r => r.json())
+    .then(data => {
+      typing.remove();
+      const response = data.response || "I'd love to help! Can you call us at (210) 606-5298?";
+      chatHistory.push("Joe: " + response);
+      addMsg("advisor", response.replace(/\n/g, "<br>"));
+    })
+    .catch(() => {
+      typing.remove();
+      // Fallback to local logic
+      addMsg("advisor", reply().replace(/\n/g, "<br>"));
+    });
 }
 
 document.querySelectorAll("[data-advisor-open]").forEach((node) => {
