@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="First Class">
+<meta name="theme-color" content="#0a0a0a">
+<title>First Class | Client Portal</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0a0a0a;--card:#1a1a1a;--card2:#222;--gold:#C9A84C;--gold2:#E8C96B;--gdim:rgba(201,168,76,.12);--text:#F5F0E8;--muted:#8A8578;--muted2:#5a5550;--bdr:rgba(255,255,255,.07);--green:#4A7C59;--red:#C45B4A;--st:env(safe-area-inset-top,44px);--sb:env(safe-area-inset-bottom,20px)}
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+body{font-family:'Inter',-apple-system,sans-serif;color:var(--text);background:var(--bg);min-height:100dvh;overflow:hidden;user-select:none}
+::-webkit-scrollbar{display:none}
+.screen{position:fixed;inset:0;display:none;flex-direction:column}.screen.active{display:flex}
+/* LOGIN */
+.login{align-items:center;justify-content:center;padding:2rem;background-image:radial-gradient(ellipse at 50% 0%,rgba(201,168,76,.06),transparent 60%)}
+.l-logo{text-align:center;margin-bottom:3rem}
+.l-logo .fc{width:72px;height:72px;background:var(--gold);border-radius:18px;display:flex;align-items:center;justify-content:center;font-family:'Playfair Display';font-size:1.6rem;font-weight:700;color:var(--bg);margin:0 auto 1rem}
+.l-logo h1{font-family:'Playfair Display';font-size:1.2rem;font-weight:600;letter-spacing:3px;color:var(--gold)}
+.l-logo p{font-size:.7rem;color:var(--muted);letter-spacing:2px;text-transform:uppercase;margin-top:6px}
+.l-box{background:var(--card);border:1px solid var(--bdr);border-radius:24px;padding:2rem;width:100%;max-width:380px}
+.l-box h2{font-size:1.1rem;font-weight:600;margin-bottom:.3rem}
+.l-box>p{font-size:.8rem;color:var(--muted);margin-bottom:1.5rem;line-height:1.5}
+.l-in{width:100%;background:var(--card2);border:1px solid var(--bdr);border-radius:14px;padding:1rem;color:var(--text);font-size:1rem;font-family:'Inter';outline:none;letter-spacing:4px;text-align:center;text-transform:uppercase}
+.l-in:focus{border-color:var(--gold)}
+.l-btn{width:100%;background:var(--gold);color:#0a0a0a;border:none;border-radius:14px;padding:1rem;font-size:.95rem;font-weight:700;font-family:'Inter';cursor:pointer;margin-top:1rem;transition:all .2s}
+.l-btn:active{transform:scale(.97);opacity:.9}
+.l-err{color:var(--red);font-size:.78rem;text-align:center;margin-top:.8rem;display:none}
+.l-demo{background:var(--gdim);border:1px solid rgba(201,168,76,.2);border-radius:12px;padding:.8rem;margin-top:1rem;font-size:.72rem;color:var(--gold);text-align:center}
+/* TOP */
+.top{padding:10px 20px;padding-top:calc(10px + var(--st));display:flex;align-items:center;justify-content:space-between;background:rgba(10,10,10,.9);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-bottom:1px solid var(--bdr);z-index:10}
+.top-l{display:flex;align-items:center;gap:10px}
+.top-l .mk{width:30px;height:30px;background:var(--gold);border-radius:8px;display:flex;align-items:center;justify-content:center;font-family:'Playfair Display';font-weight:700;font-size:.8rem;color:var(--bg)}
+.top-l span{font-size:.7rem;color:var(--muted);letter-spacing:1.5px;text-transform:uppercase}
+.av{width:32px;height:32px;border-radius:10px;background:var(--gdim);border:1px solid rgba(201,168,76,.3);display:flex;align-items:center;justify-content:center;font-size:.65rem;font-weight:600;color:var(--gold)}
+/* BODY */
+.body{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;padding-bottom:calc(70px + var(--sb))}
+.tb{display:none;padding:20px}.tb.on{display:block;animation:fu .25s ease}
+@keyframes fu{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+/* NAV */
+.nav{position:fixed;bottom:0;left:0;right:0;background:rgba(10,10,10,.92);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-top:1px solid var(--bdr);display:flex;padding:8px 0;padding-bottom:calc(8px + var(--sb));z-index:10}
+.ni{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;padding:4px;cursor:pointer}.ni .nl{font-size:.62rem;color:var(--muted);font-weight:500}.ni .nd{width:4px;height:4px;border-radius:50%;background:transparent}.ni.on .nl{color:var(--gold)}.ni.on .nd{background:var(--gold)}
+/* COMMON */
+.sl{font-size:.6rem;color:var(--muted);letter-spacing:2px;text-transform:uppercase;margin-bottom:10px;font-weight:600}
+.cd{background:var(--card);border:1px solid var(--bdr);border-radius:18px;padding:18px;margin-bottom:12px}
+/* HOME */
+.gr{margin-bottom:20px}.gr .gs{font-size:.72rem;color:var(--muted);margin-bottom:2px}.gr h2{font-family:'Playfair Display';font-size:1.4rem;font-weight:600}
+.pc{position:relative;overflow:hidden}.pc::before{content:'';position:absolute;top:0;right:0;width:120px;height:120px;background:radial-gradient(circle,rgba(201,168,76,.08),transparent 70%)}
+.pt{font-size:.55rem;color:var(--gold);letter-spacing:1.5px;text-transform:uppercase;font-weight:600;margin-bottom:8px}
+.pn{font-family:'Playfair Display';font-size:1.1rem;font-weight:600;margin-bottom:4px}
+.pa{font-size:.72rem;color:var(--muted);margin-bottom:16px}
+.pr{display:flex;align-items:center;gap:16px;margin-bottom:14px}
+.rw{position:relative;width:64px;height:64px}.rw svg{transform:rotate(-90deg)}.rp{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:1rem;font-weight:700}
+.pi .pl{font-size:.62rem;color:var(--muted);text-transform:uppercase;letter-spacing:1px}.pi .pp{font-size:.85rem;font-weight:600;color:var(--gold);margin-top:2px}
+.mb{width:100%;padding:14px;background:var(--gdim);border:1px solid rgba(201,168,76,.25);border-radius:14px;color:var(--gold);font-size:.82rem;font-weight:600;text-align:center;cursor:pointer;margin-top:12px;border:1px solid rgba(201,168,76,.25)}.mb:active{transform:scale(.97)}
+/* TIMELINE */
+.ti{display:flex;gap:14px;padding-bottom:24px;position:relative}.tl{position:absolute;left:15px;top:32px;bottom:0;width:1px;background:var(--bdr)}
+.td{width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:.7rem;font-weight:700;border:2px solid var(--bdr);background:var(--bg);z-index:1}
+.td.dn{border-color:var(--green);color:var(--green)}.td.cr{border-color:var(--gold);color:var(--gold);box-shadow:0 0 12px rgba(201,168,76,.3);animation:pg 2s infinite}
+@keyframes pg{0%,100%{box-shadow:0 0 8px rgba(201,168,76,.2)}50%{box-shadow:0 0 16px rgba(201,168,76,.4)}}
+.td.up{color:var(--muted2)}.tb4{font-size:.85rem;font-weight:600;margin-bottom:2px}.tb5{font-size:.7rem;color:var(--muted);line-height:1.4}.tb6{font-size:.6rem;color:var(--muted2);margin-top:4px}
+/* GALLERY */
+.gf{display:flex;gap:8px;margin-bottom:14px}.gf div{padding:6px 14px;border-radius:20px;font-size:.68rem;font-weight:600;background:var(--card);border:1px solid var(--bdr);color:var(--muted);cursor:pointer}.gf .on{background:var(--gdim);border-color:rgba(201,168,76,.3);color:var(--gold)}
+.gb{background:var(--gdim);border:1px solid rgba(201,168,76,.2);border-radius:12px;padding:10px 14px;font-size:.72rem;color:var(--gold);margin-bottom:14px;text-align:center}
+.gg{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.gi{aspect-ratio:1;border-radius:14px;overflow:hidden;position:relative;cursor:pointer}
+.gp{width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:.7rem;color:var(--muted);font-weight:500}
+.gl{position:absolute;bottom:0;left:0;right:0;padding:8px 10px;background:linear-gradient(transparent,rgba(0,0,0,.8));font-size:.62rem;color:#fff;font-weight:500}
+/* FINANCIALS */
+.ft{text-align:center;padding:20px 0 16px}.ft .fl{font-size:.6rem;color:var(--muted);text-transform:uppercase;letter-spacing:2px}.ft .fa{font-family:'Playfair Display';font-size:2.2rem;font-weight:600;margin:4px 0}
+.fb{height:6px;background:var(--card2);border-radius:6px;overflow:hidden;margin-bottom:6px}.ff{height:100%;background:linear-gradient(90deg,var(--gold),var(--gold2));border-radius:6px}
+.fl2{display:flex;justify-content:space-between;font-size:.6rem;color:var(--muted);margin-bottom:16px}
+.pi2{display:flex;align-items:center;justify-content:space-between;padding:14px 0;border-bottom:1px solid var(--bdr)}.pi2:last-child{border:none}
+.pd{font-size:.82rem;font-weight:500}.pd2{font-size:.65rem;color:var(--muted);margin-top:2px}.pm{font-size:.9rem;font-weight:600}
+.ps{font-size:.55rem;padding:3px 8px;border-radius:6px;font-weight:600}.ps.pd3{background:rgba(74,124,89,.15);color:var(--green)}.ps.uc{background:var(--gdim);color:var(--gold)}.ps.rm{background:rgba(255,255,255,.05);color:var(--muted)}
+.pb{width:100%;padding:14px;background:var(--gold);color:#0a0a0a;border:none;border-radius:14px;font-size:.85rem;font-weight:700;cursor:pointer;margin-top:14px}
+/* MESSAGES */
+.ca{display:flex;flex-direction:column;min-height:calc(100vh - 180px)}
+.cm{flex:1;display:flex;flex-direction:column;padding:10px 0}
+.ms{max-width:80%;padding:12px 16px;border-radius:18px;margin-bottom:8px;font-size:.82rem;line-height:1.5}
+.mt{background:var(--card);border:1px solid var(--bdr);border-bottom-left-radius:4px;align-self:flex-start}
+.mt .mn{font-size:.6rem;color:var(--gold);font-weight:600;margin-bottom:4px}
+.my{background:var(--gold);color:#0a0a0a;border-bottom-right-radius:4px;align-self:flex-end}
+.mx{font-size:.55rem;color:var(--muted2);margin-top:4px}
+.qr{display:flex;gap:6px;flex-wrap:wrap;padding:10px 0}.qr div{padding:8px 14px;border-radius:20px;font-size:.7rem;font-weight:500;background:var(--card);border:1px solid var(--bdr);color:var(--text);cursor:pointer}
+.ci{display:flex;gap:8px;padding:10px 0}.ci input{flex:1;background:var(--card);border:1px solid var(--bdr);border-radius:14px;padding:12px 16px;color:var(--text);font-size:.82rem;outline:none;font-family:'Inter'}.ci input:focus{border-color:var(--gold)}.ci button{background:var(--gold);border:none;border-radius:14px;padding:12px 18px;color:#0a0a0a;font-weight:700;font-size:.8rem;cursor:pointer;font-family:'Inter'}
+/* LIGHTBOX */
+.lb{display:none;position:fixed;inset:0;background:rgba(0,0,0,.95);z-index:200;align-items:center;justify-content:center;cursor:pointer}.lb.op{display:flex}
+</style>
+</head>
+<body>
+<div class="screen login active" id="ls">
+<div class="l-logo"><div class="fc">FC</div><h1>FIRST CLASS</h1><p>Remodeling TX</p></div>
+<div class="l-box"><h2>Welcome</h2><p>Enter your project code to access updates, photos, and progress.</p>
+<input class="l-in" id="lc" placeholder="Code" autocomplete="off">
+<button class="l-btn" onclick="dl()">Access My Project</button>
+<div class="l-err" id="le">Invalid code. Contact your project director.</div>
+<div class="l-demo">Demo: <strong>FCR001</strong> or <strong>FCR002</strong></div></div></div>
+
+<div class="screen" id="as">
+<div class="top"><div class="top-l"><div class="mk">FC</div><span>First Class</span></div><div class="av" id="ua">SM</div></div>
+<div class="body">
+<div class="tb on" id="t-home">
+<div class="gr"><div class="gs" id="grs">Good afternoon</div><h2 id="grn">Sarah</h2></div>
+<div class="cd pc"><div class="pt">Active Project</div><div class="pn" id="pjn">Kitchen & Master Bath Remodel</div><div class="pa" id="pja">1847 Elm Creek, Stone Oak</div>
+<div class="pr"><div class="rw"><svg width="64" height="64" viewBox="0 0 64 64"><circle cx="32" cy="32" r="28" fill="none" stroke="var(--card2)" stroke-width="4"/><circle cx="32" cy="32" r="28" fill="none" stroke="var(--gold)" stroke-width="4" stroke-dasharray="175.9" stroke-dashoffset="56.3" stroke-linecap="round" id="pc2"/></svg><div class="rp" id="pp">68%</div></div>
+<div class="pi"><div class="pl">Current Phase</div><div class="pp" id="cp">Construction</div></div></div></div>
+<div class="sl">Next Milestone</div><div class="cd"><div style="display:flex;align-items:center;gap:12px"><div style="width:8px;height:8px;border-radius:50%;background:var(--gold)"></div><div><div style="font-size:.6rem;color:var(--muted);text-transform:uppercase;letter-spacing:1px">Week of April 14</div><div style="font-size:.82rem;font-weight:500">Cabinet installation begins</div></div></div></div>
+<div class="sl">Latest Update</div><div class="cd" style="padding:0;overflow:hidden"><div class="gp" style="height:160px;background:linear-gradient(135deg,#1a1a1a,#252520)">Plumbing rough-in completed</div></div>
+<div class="mb" onclick="sw('messages')">Message your team</div></div>
+
+<div class="tb" id="t-timeline"><div class="sl">Project Timeline</div>
+<div style="padding:10px 0">
+<div class="ti"><div class="tl"></div><div class="td dn">1</div><div><div class="tb4">Design & Planning</div><div class="tb5">Layout finalized, materials selected</div><div class="tb6">Completed Feb 12</div></div></div>
+<div class="ti"><div class="tl"></div><div class="td dn">2</div><div><div class="tb4">Permits</div><div class="tb5">City permit approved</div><div class="tb6">Completed Feb 28</div></div></div>
+<div class="ti"><div class="tl"></div><div class="td dn">3</div><div><div class="tb4">Demolition</div><div class="tb5">Kitchen and bath stripped to studs</div><div class="tb6">Completed Mar 8</div></div></div>
+<div class="ti"><div class="tl"></div><div class="td cr">4</div><div><div class="tb4">Construction</div><div class="tb5">Framing, electrical, plumbing. Drywall next.</div><div class="tb6">In progress</div></div></div>
+<div class="ti"><div class="tl"></div><div class="td up">5</div><div><div class="tb4">Finishing</div><div class="tb5">Cabinets, countertops, tile, paint</div><div class="tb6">Est. Apr 14 - May 2</div></div></div>
+<div class="ti"><div class="td up">6</div><div><div class="tb4">Final Walkthrough</div><div class="tb5">Punch list, inspection, handover</div><div class="tb6">Est. May 5</div></div></div>
+</div>
+<div style="text-align:center;padding:16px;font-size:.75rem;color:var(--muted)">Estimated completion: <strong style="color:var(--gold)">May 5, 2026</strong></div></div>
+
+<div class="tb" id="t-gallery"><div class="gb">Your team added 3 new photos today</div>
+<div class="gf"><div class="on">All</div><div>Before</div><div>During</div><div>After</div></div>
+<div class="sl">Kitchen</div><div class="gg">
+<div class="gi"><div class="gp" style="background:#2a2520">Demo Day 1</div><div class="gl">Before</div></div>
+<div class="gi"><div class="gp" style="background:#20252a">Framing</div><div class="gl">During</div></div>
+<div class="gi"><div class="gp" style="background:#252520">Electrical</div><div class="gl">During</div></div>
+<div class="gi"><div class="gp" style="background:#202a25">Plumbing</div><div class="gl">During</div></div></div>
+<div class="sl" style="margin-top:18px">Master Bath</div><div class="gg">
+<div class="gi"><div class="gp" style="background:#2a2025">Before</div><div class="gl">Before</div></div>
+<div class="gi"><div class="gp" style="background:#20252a">Shower Pan</div><div class="gl">During</div></div>
+<div class="gi"><div class="gp" style="background:#25202a">Tile Layout</div><div class="gl">During</div></div>
+<div class="gi"><div class="gp" style="background:#2a2520">Window</div><div class="gl">During</div></div></div></div>
+
+<div class="tb" id="t-fin"><div class="ft"><div class="fl">Contract Total</div><div class="fa">$47,500</div></div>
+<div class="cd"><div class="fb"><div class="ff" style="width:60%"></div></div><div class="fl2"><span>Paid: $28,500</span><span>Remaining: $19,000</span></div>
+<div class="sl">Payment Schedule</div>
+<div class="pi2"><div><div class="pd">Deposit</div><div class="pd2">Feb 5, 2026</div></div><div><div class="pm">$14,250</div><div class="ps pd3">Paid</div></div></div>
+<div class="pi2"><div><div class="pd">Construction start</div><div class="pd2">Mar 5, 2026</div></div><div><div class="pm">$14,250</div><div class="ps pd3">Paid</div></div></div>
+<div class="pi2"><div><div class="pd">Cabinet installation</div><div class="pd2">Apr 14, 2026</div></div><div><div class="pm">$9,500</div><div class="ps uc">Upcoming</div></div></div>
+<div class="pi2"><div><div class="pd">Final walkthrough</div><div class="pd2">May 5, 2026</div></div><div><div class="pm">$9,500</div><div class="ps rm">Remaining</div></div></div>
+<button class="pb">Pay Upcoming Balance</button></div></div>
+
+<div class="tb" id="t-msg"><div class="ca">
+<div class="cm" id="ch" style="display:flex;flex-direction:column">
+<div class="ms mt"><div class="mn">Roberto</div>Good morning Sarah! Plumbing rough-in is done. Drywall starts Monday.<div class="mx">9:15 AM</div></div>
+<div class="ms my">That's great news! Can I stop by this weekend?<div class="mx">9:42 AM</div></div>
+<div class="ms mt"><div class="mn">Roberto</div>Of course! Saturday morning works. I'll leave the lockbox code the same.<div class="mx">9:48 AM</div></div>
+<div class="ms my">Perfect, thank you Roberto!<div class="mx">10:01 AM</div></div>
+<div class="ms mt"><div class="mn">Roberto</div>The cabinet samples arrived. I'll send photos so you can confirm the finish.<div class="mx">11:30 AM</div></div>
+</div>
+<div class="qr"><div onclick="sq('Looks great!')">Looks great!</div><div onclick="sq('Question about this')">Question</div><div onclick="sq('Schedule a call?')">Call</div></div>
+<div class="ci"><input id="cx" placeholder="Message your team..."><button onclick="sc()">Send</button></div></div></div>
+</div>
+
+<div class="nav">
+<div class="ni on" onclick="sw('home')"><div class="nl">Home</div><div class="nd"></div></div>
+<div class="ni" onclick="sw('timeline')"><div class="nl">Timeline</div><div class="nd"></div></div>
+<div class="ni" onclick="sw('gallery')"><div class="nl">Gallery</div><div class="nd"></div></div>
+<div class="ni" onclick="sw('fin')"><div class="nl">Financials</div><div class="nd"></div></div>
+<div class="ni" onclick="sw('msg')"><div class="nl">Messages</div><div class="nd"></div></div>
+</div></div>
+
+<script>
+var P={FCR001:{n:"Sarah Mitchell",i:"SM",p:"Kitchen & Master Bath Remodel",a:"1847 Elm Creek, Stone Oak",pr:68,ph:"Construction"},FCR002:{n:"David Chen",i:"DC",p:"Outdoor Kitchen & Patio",a:"2205 Dominion Dr, The Dominion",pr:35,ph:"Permits"},FCR003:{n:"Maria Garcia",i:"MG",p:"Full Home Renovation",a:"945 Brackenridge, Alamo Heights",pr:92,ph:"Finishing"}};
+function dl(){var c=document.getElementById('lc').value.trim().toUpperCase(),d=P[c];if(!d){document.getElementById('le').style.display='block';return}
+document.getElementById('grn').textContent=d.n.split(' ')[0];document.getElementById('pjn').textContent=d.p;document.getElementById('pja').textContent=d.a;document.getElementById('pp').textContent=d.pr+'%';document.getElementById('cp').textContent=d.ph;document.getElementById('ua').textContent=d.i;
+document.getElementById('pc2').setAttribute('stroke-dashoffset',175.9*(1-d.pr/100));
+var h=new Date().getHours();document.getElementById('grs').textContent=h<12?'Good morning':h<17?'Good afternoon':'Good evening';
+document.getElementById('ls').classList.remove('active');document.getElementById('as').classList.add('active')}
+function sw(t){document.querySelectorAll('.tb').forEach(function(e){e.classList.remove('on')});document.querySelectorAll('.ni').forEach(function(e){e.classList.remove('on')});
+document.getElementById('t-'+t).classList.add('on');var tabs=['home','timeline','gallery','fin','msg'],i=tabs.indexOf(t);if(i>=0)document.querySelectorAll('.ni')[i].classList.add('on')}
+function sq(t){var m=document.getElementById('ch');m.innerHTML+='<div class="ms my">'+t+'<div class="mx">Just now</div></div>';m.scrollTop=m.scrollHeight}
+function sc(){var x=document.getElementById('cx'),t=x.value.trim();if(!t)return;sq(t);x.value=''}
+document.getElementById('lc').addEventListener('keydown',function(e){if(e.key==='Enter')dl()});
+document.getElementById('cx').addEventListener('keydown',function(e){if(e.key==='Enter')sc()});
+</script>
+</body>
+</html>
