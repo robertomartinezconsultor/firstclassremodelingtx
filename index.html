@@ -1925,6 +1925,12 @@ function openAdvisor() {
 function closeAdvisor() {
   modal.classList.remove("open");
   modal.setAttribute("aria-hidden", "true");
+  // Clear chat history
+  joeMessages = [];
+  joeBusy = false;
+  logEl.innerHTML = "";
+  state.project = null; state.area = null; state.dimensions = null;
+  state.timeline = null; state.name = null; state.phone = null; state.email = null;
 }
 
 function extract(message) {
@@ -2011,14 +2017,19 @@ function reply() {
   return `${parts.join(" ").trim()}\n\nI can point you to the consultation form now, or you can call or WhatsApp the team and keep it moving today.`.trim();
 }
 
-const chatHistory = [];
-const JOE_API = "https://cabinets-liz-soonest-quarter.trycloudflare.com/api/joe/chat";
+const JOE_API = "http://159.203.143.156:8085/api/joe";
+const JOE_SYSTEM = "You are Joe -- the #1 senior project advisor and sales expert at First Class Remodeling TX, the premier residential remodeling company in San Antonio, Texas. Owner: Roberto Martinez, phone (210) 606-5298, website: firstclassremodelingtx.com.\n\nYou are a CONSTRUCTION EXPERT and SALES CLOSER with 20+ years experience in San Antonio.\n\nYOUR EXPERTISE:\n- Kitchen remodels: cabinets, countertops (quartz $50-150/sqft, granite $40-100, marble $75-200). Full remodel $25k-55k, refresh $8k-22k.\n- Bathroom remodels: master $14k-35k, guest $7k-18k, powder $3.5k-9k.\n- Flooring: LVP $5-9/sqft installed, hardwood $9-16, tile $8-14.\n- Painting: interior $2.5k-6k full home, exterior $3k-8k.\n- Outdoor: kitchens $18k-40k, patios $12k-30k, combined $28k-60k.\n- Home additions: room $55k-90k+, garage conversion $25k-55k.\n- Permits: San Antonio/Bexar County, 2-4 weeks approval. We handle all permits.\n- Timelines: bath 1-3 weeks, kitchen 3-6 weeks, outdoor 3-6 weeks, addition 8-16 weeks.\n\nHOW TO TALK:\n- You ARE Joe. NEVER say you are AI, a bot, or an assistant.\n- Warm, confident, conversational -- like texting a friend who is a construction expert.\n- Match the client language: Spanish or English.\n- Give real San Antonio price ranges.\n- ALWAYS guide toward a free estimate: 'Want Roberto to come take a look? Free estimate, no pressure.'\n- Keep it 2-4 sentences. Phone: (210) 606-5298 | WhatsApp: wa.me/12106065298";
+let joeMessages = [];
+let joeBusy = false;
+
+// Clear on page leave
+window.addEventListener("beforeunload", () => { joeMessages = []; });
 
 function sendAdvisorMessage(value) {
   const clean = value.trim();
-  if (!clean) return;
+  if (!clean || joeBusy) return;
+  joeBusy = true;
   addMsg("user", clean);
-  chatHistory.push("Customer: " + clean);
 
   // Show typing indicator
   const typing = document.createElement("article");
@@ -2027,22 +2038,35 @@ function sendAdvisorMessage(value) {
   logEl.appendChild(typing);
   logEl.scrollTop = logEl.scrollHeight;
 
-  // Also extract locally for form pre-fill
+  // Extract for form pre-fill
   extract(clean);
 
-  // Call AI API
-  fetch(JOE_API + "?message=" + encodeURIComponent(clean) + "&history=" + encodeURIComponent(chatHistory.slice(-6).join("\n")))
+  // Build AI messages
+  joeMessages.push({role: "user", content: clean});
+  if (joeMessages.length > 16) joeMessages = joeMessages.slice(-16);
+
+  fetch(JOE_API, {
+    method: "POST",
+    headers: {"Content-Type": "application/json"},
+    body: JSON.stringify({
+      messages: [{role: "system", content: JOE_SYSTEM}, ...joeMessages],
+      max_tokens: 400,
+      temperature: 0.7
+    })
+  })
     .then(r => r.json())
     .then(data => {
       typing.remove();
-      const response = data.response || "I'd love to help! Can you call us at (210) 606-5298?";
-      chatHistory.push("Joe: " + response);
-      addMsg("advisor", response.replace(/\n/g, "<br>"));
+      const response = (data.choices && data.choices[0] && data.choices[0].message && data.choices[0].message.content) || "I'd love to help! Call or text us at (210) 606-5298.";
+      joeMessages.push({role: "assistant", content: response});
+      const cleaned = response.replace(/\*\*/g,"").replace(/\*/g,"").replace(/^#+\s/gm,"").replace(/\n/g, "<br>");
+      addMsg("advisor", cleaned);
+      joeBusy = false;
     })
     .catch(() => {
       typing.remove();
-      // Fallback to local logic
-      addMsg("advisor", reply().replace(/\n/g, "<br>"));
+      addMsg("advisor", "Brief connection issue — call or text us at <a href='tel:2106065298'>(210) 606-5298</a> for instant help!");
+      joeBusy = false;
     });
 }
 
