@@ -979,168 +979,176 @@ button { cursor: pointer; }
   display: none;
 }
 
+/* ── ASK JOE MODAL — Modern Chat UI ── */
 .advisor-modal {
   position: fixed;
   inset: 0;
-  z-index: 90;
+  z-index: 9999;
   display: none;
-  align-items: center;
+  align-items: flex-end;
   justify-content: center;
-  padding: 20px;
-  background: rgba(6,10,18,0.82);
+  padding: 0;
+  background: rgba(0,0,0,0.6);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
 }
 
 .advisor-modal.open {
   display: flex;
+  animation: fadeIn .2s ease;
 }
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
 .advisor-panel {
-  width: min(100%, 560px);
-  max-height: min(88vh, 780px);
+  width: 100%;
+  max-width: 440px;
+  height: 100dvh;
   overflow: hidden;
-  display: grid;
-  grid-template-rows: auto auto 1fr auto auto;
-  border-radius: 28px;
-  background: #0b1420;
-  border: 1px solid rgba(255,255,255,0.1);
-  box-shadow: 0 32px 90px rgba(0,0,0,0.45);
+  display: flex;
+  flex-direction: column;
+  background: #0c1321;
+  animation: slideUp .3s ease;
 }
+@keyframes slideUp { from { transform: translateY(100%); } to { transform: translateY(0); } }
 
-.advisor-head,
-.advisor-actions,
-.advisor-input {
-  padding: 18px 18px 0;
+/* Desktop: floating panel */
+@media (min-width: 640px) {
+  .advisor-modal { align-items: center; padding: 20px; }
+  .advisor-panel {
+    height: auto;
+    max-height: min(85vh, 680px);
+    border-radius: 20px;
+    border: 1px solid rgba(255,255,255,0.08);
+    box-shadow: 0 24px 80px rgba(0,0,0,0.5);
+  }
 }
 
 .advisor-head {
   display: flex;
-  align-items: flex-start;
+  align-items: center;
   justify-content: space-between;
   gap: 12px;
+  padding: 16px 16px 12px;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+  flex-shrink: 0;
 }
 
 .advisor-head strong {
   display: block;
-  font-family: "Cormorant Garamond", serif;
-  font-size: 36px;
+  font-size: 17px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
 }
 
 .advisor-head span {
   display: block;
-  margin-top: 4px;
+  margin-top: 1px;
   color: var(--muted);
-  line-height: 1.6;
+  font-size: 12px;
+  line-height: 1.4;
 }
 
 .advisor-close {
-  width: 42px;
-  height: 42px;
-  border-radius: 14px;
-  border: 1px solid rgba(255,255,255,0.12);
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 1px solid rgba(255,255,255,0.1);
   background: rgba(255,255,255,0.05);
   color: var(--text);
-}
-
-.advisor-chips {
-  padding: 14px 18px 0;
+  font-size: 18px;
+  cursor: pointer;
   display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: background .15s;
 }
-
-.chip {
-  border-radius: 999px;
-  border: 1px solid rgba(255,255,255,0.12);
-  background: rgba(255,255,255,0.05);
-  color: var(--muted);
-  padding: 10px 14px;
-}
-
-.advisor-quick {
-  padding: 6px 18px 0;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-}
-
-.advisor-quick button {
-  border-radius: 999px;
-  border: 1px solid rgba(255,255,255,0.12);
-  background: rgba(255,255,255,0.05);
-  color: var(--muted);
-  padding: 10px 14px;
-}
-
-.advisor-log {
-  margin: 16px 18px 0;
-  padding: 0 2px;
-  overflow: auto;
-  display: grid;
-  gap: 12px;
-}
-
-.msg {
-  max-width: 88%;
-  padding: 14px 16px;
-  border-radius: 18px;
-  background: rgba(255,255,255,0.06);
-  color: var(--text);
-  line-height: 1.7;
-}
-
-.msg.user {
-  margin-left: auto;
-  background: rgba(215,180,108,0.14);
-  border: 1px solid rgba(215,180,108,0.22);
-}
-
-.msg-label {
-  display: block;
-  margin-bottom: 6px;
-  color: var(--gold-2);
-  font-size: 11px;
-  text-transform: uppercase;
-  letter-spacing: 0.12em;
-}
+.advisor-close:hover { background: rgba(255,255,255,0.1); }
 
 .advisor-chips {
   display: flex;
   gap: 6px;
   flex-wrap: wrap;
-  padding: 0 20px 8px;
+  padding: 10px 16px 6px;
+  flex-shrink: 0;
 }
+
 .advisor-chips button {
-  background: rgba(215,180,108,0.1);
-  border: 1px solid rgba(215,180,108,0.25);
-  color: var(--gold-2);
+  background: rgba(215,180,108,0.08);
+  border: 1px solid rgba(215,180,108,0.2);
+  color: var(--gold-2, #C9A84C);
   padding: 8px 14px;
   border-radius: 20px;
   font-size: 13px;
   cursor: pointer;
-  transition: all .2s;
-  min-height: 44px;
+  transition: all .15s;
+  min-height: 40px;
+  white-space: nowrap;
 }
 .advisor-chips button:hover {
-  background: rgba(215,180,108,0.2);
-  border-color: var(--gold);
+  background: rgba(215,180,108,0.18);
+  border-color: var(--gold, #C9A84C);
+}
+
+.advisor-log {
+  flex: 1;
+  overflow-y: auto;
+  padding: 16px 16px 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  -webkit-overflow-scrolling: touch;
+  scroll-behavior: smooth;
+}
+
+.msg {
+  max-width: 85%;
+  padding: 12px 16px;
+  border-radius: 18px 18px 18px 4px;
+  background: rgba(255,255,255,0.06);
+  color: var(--text);
+  line-height: 1.55;
+  font-size: 15px;
+}
+
+.msg.user {
+  margin-left: auto;
+  border-radius: 18px 18px 4px 18px;
+  background: rgba(215,180,108,0.14);
+  border: 1px solid rgba(215,180,108,0.18);
+}
+
+.msg-label {
+  display: block;
+  margin-bottom: 4px;
+  color: var(--gold-2, #C9A84C);
+  font-size: 10px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
 }
 
 .advisor-footer {
   display: flex;
-  gap: 12px;
+  gap: 16px;
   justify-content: center;
-  padding: 8px 20px 12px;
-  font-size: 12px;
-  opacity: .7;
+  padding: 6px 16px;
+  font-size: 11px;
+  border-top: 1px solid rgba(255,255,255,0.04);
+  flex-shrink: 0;
 }
 .advisor-footer a, .advisor-footer button {
   color: var(--muted);
   text-decoration: none;
+  opacity: .7;
+  transition: opacity .15s;
 }
-.advisor-footer a:hover { color: var(--gold); }
+.advisor-footer a:hover, .advisor-footer button:hover { opacity: 1; color: var(--gold, #C9A84C); }
 
 .advisor-input {
-  padding: 0 12px 12px;
+  padding: 8px 12px calc(env(safe-area-inset-bottom, 8px) + 8px);
+  flex-shrink: 0;
+  border-top: 1px solid rgba(255,255,255,0.06);
 }
 .advisor-input form {
   display: flex;
@@ -1149,33 +1157,34 @@ button { cursor: pointer; }
 }
 .advisor-input input {
   flex: 1;
-  border: 1px solid rgba(255,255,255,.12);
+  border: 1px solid rgba(255,255,255,.1);
   border-radius: 24px;
   padding: 12px 18px;
   font-size: 16px;
-  background: rgba(255,255,255,.05);
+  background: rgba(255,255,255,.04);
   color: var(--text);
   outline: none;
   -webkit-appearance: none;
 }
 .advisor-input input:focus {
-  border-color: var(--gold);
+  border-color: var(--gold, #C9A84C);
+  background: rgba(255,255,255,.06);
 }
 .advisor-input button[type="submit"] {
   width: 44px;
   height: 44px;
   border-radius: 50%;
-  background: var(--gold);
-  color: var(--bg);
+  background: linear-gradient(135deg, #C9A84C, #E2C87E);
+  color: #0c1321;
   border: none;
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
-  transition: transform .15s;
+  transition: transform .15s, box-shadow .15s;
 }
-.advisor-input button[type="submit"]:hover { transform: scale(1.06); }
+.advisor-input button[type="submit"]:hover { transform: scale(1.06); box-shadow: 0 4px 12px rgba(201,168,76,0.3); }
 
 /* Typing indicator */
 .joe-dots {
@@ -1240,32 +1249,7 @@ button { cursor: pointer; }
   to { opacity: 1; transform: translateY(0); }
 }
 
-.advisor-input form {
-  display: grid;
-  grid-template-columns: 1fr auto;
-  gap: 10px;
-}
-
-.advisor-input textarea {
-  width: 100%;
-  min-height: 72px;
-  max-height: 140px;
-  resize: vertical;
-  padding: 14px 16px;
-  border-radius: 18px;
-  border: 1px solid rgba(255,255,255,0.12);
-  background: rgba(255,255,255,0.04);
-  color: var(--text);
-}
-
-.advisor-input button {
-  min-width: 94px;
-  border: none;
-  border-radius: 18px;
-  background: linear-gradient(135deg, var(--gold-2), var(--gold));
-  color: #111;
-  font-weight: 700;
-}
+/* old advisor-input styles removed — now in main block above */
 
 @media (max-width: 1080px) {
   .nav-links { display: none; }
@@ -1399,12 +1383,7 @@ button { cursor: pointer; }
   .footer {
     padding-bottom: calc(268px + var(--safe-bottom));
   }
-  .advisor-panel {
-    max-height: calc(100svh - 24px);
-  }
-  .advisor-input form {
-    grid-template-columns: 1fr;
-  }
+  /* advisor-panel now handled in main styles above */
 }
 </style>
 </head>
@@ -1980,7 +1959,7 @@ button { cursor: pointer; }
 <div class="sticky-mobile">
   <a class="primary" href="tel:2106065298">Call Now</a>
   <a class="whatsapp-main" href="https://wa.me/12106065298?text=Hi%20First%20Class%20Remodeling%20TX.%20I%20would%20like%20to%20talk%20about%20my%20project." target="_blank" rel="noopener">WhatsApp</a>
-  <button class="secondary-action ask-joe-portal" type="button" data-advisor-open>Ask Joe · Portal</button>
+  <button class="secondary-action ask-joe-portal" type="button" data-advisor-open>💬 ASK JOE</button>
 </div>
 
 <!-- ASK JOE AI ADVISOR — TigreLabs Trenzado Engine -->
