@@ -2220,7 +2220,7 @@ function extract(message) {
 // Lead capture to Lead Engine
 function captureLead() {
   if (!state.phone && !state.email) return;
-  fetch("http://159.203.143.156:8085/api/lead", {
+  fetch("https://eltigrelabs.com/api/joe/lead", {
     method: "POST",
     headers: {"Content-Type": "application/json"},
     body: JSON.stringify({
