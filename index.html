@@ -1100,20 +1100,141 @@ button { cursor: pointer; }
   letter-spacing: 0.12em;
 }
 
-.advisor-actions {
+.advisor-chips {
   display: flex;
-  gap: 10px;
+  gap: 6px;
   flex-wrap: wrap;
+  padding: 0 20px 8px;
+}
+.advisor-chips button {
+  background: rgba(215,180,108,0.1);
+  border: 1px solid rgba(215,180,108,0.25);
+  color: var(--gold-2);
+  padding: 8px 14px;
+  border-radius: 20px;
+  font-size: 13px;
+  cursor: pointer;
+  transition: all .2s;
+  min-height: 44px;
+}
+.advisor-chips button:hover {
+  background: rgba(215,180,108,0.2);
+  border-color: var(--gold);
 }
 
-.advisor-actions .btn,
-.advisor-actions .btn-secondary {
-  min-height: 42px;
-  padding: 0 16px;
+.advisor-footer {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  padding: 8px 20px 12px;
+  font-size: 12px;
+  opacity: .7;
 }
+.advisor-footer a, .advisor-footer button {
+  color: var(--muted);
+  text-decoration: none;
+}
+.advisor-footer a:hover { color: var(--gold); }
 
 .advisor-input {
-  padding-bottom: 18px;
+  padding: 0 12px 12px;
+}
+.advisor-input form {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+.advisor-input input {
+  flex: 1;
+  border: 1px solid rgba(255,255,255,.12);
+  border-radius: 24px;
+  padding: 12px 18px;
+  font-size: 16px;
+  background: rgba(255,255,255,.05);
+  color: var(--text);
+  outline: none;
+  -webkit-appearance: none;
+}
+.advisor-input input:focus {
+  border-color: var(--gold);
+}
+.advisor-input button[type="submit"] {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: var(--gold);
+  color: var(--bg);
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: transform .15s;
+}
+.advisor-input button[type="submit"]:hover { transform: scale(1.06); }
+
+/* Typing indicator */
+.joe-dots {
+  display: inline-flex;
+  gap: 4px;
+  padding: 4px 0;
+}
+.joe-dots span {
+  width: 7px; height: 7px;
+  background: var(--muted);
+  border-radius: 50%;
+  animation: joeBounce 1.4s infinite ease-in-out;
+}
+.joe-dots span:nth-child(2) { animation-delay: .2s; }
+.joe-dots span:nth-child(3) { animation-delay: .4s; }
+@keyframes joeBounce {
+  0%, 80%, 100% { transform: translateY(0); }
+  40% { transform: translateY(-5px); }
+}
+
+/* Quick replies in chat */
+.joe-quick-replies {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  padding: 6px 0 4px;
+}
+.joe-quick-replies button {
+  background: rgba(215,180,108,0.08);
+  border: 1px solid rgba(215,180,108,0.2);
+  color: var(--gold-2);
+  padding: 8px 14px;
+  border-radius: 18px;
+  font-size: 13px;
+  cursor: pointer;
+  transition: all .15s;
+  min-height: 44px;
+}
+.joe-quick-replies button:hover {
+  background: rgba(215,180,108,0.18);
+  border-color: var(--gold);
+}
+
+/* Nudge bubble */
+.joe-nudge {
+  position: fixed;
+  bottom: 88px;
+  right: 20px;
+  background: #fff;
+  color: #333;
+  padding: 12px 32px 12px 16px;
+  border-radius: 12px 12px 0 12px;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.2);
+  font-size: 14px;
+  max-width: 260px;
+  z-index: 9998;
+  cursor: pointer;
+  animation: joeSlideUp .4s ease;
+}
+@keyframes joeSlideUp {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
 .advisor-input form {
@@ -1859,37 +1980,110 @@ button { cursor: pointer; }
   <button class="secondary-action ask-joe-portal" type="button" data-advisor-open>Ask Joe · Portal</button>
 </div>
 
+<!-- ASK JOE AI ADVISOR — TigreLabs Trenzado Engine -->
 <div class="advisor-modal" id="advisorModal" aria-hidden="true">
   <div class="advisor-panel" role="dialog" aria-modal="true" aria-labelledby="advisorTitle">
     <div class="advisor-head">
-      <div>
-        <strong id="advisorTitle">Ask Joe</strong>
-        <span>Quick project questions, answered simply.</span>
+      <div style="display:flex;align-items:center;gap:10px">
+        <div style="width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,#C9A84C,#E2C87E);display:flex;align-items:center;justify-content:center;font-weight:700;color:#1a1a2e;font-size:15px;flex-shrink:0">J</div>
+        <div>
+          <strong id="advisorTitle">Joe — Project Advisor</strong>
+          <span style="display:block;font-size:11px;opacity:.7">AI-powered · Typically replies instantly</span>
+        </div>
       </div>
       <button class="advisor-close" type="button" id="advisorClose" aria-label="Close">×</button>
     </div>
-    <div class="advisor-quick">
-      <button type="button" data-advisor-chip="Kitchen remodel">Kitchen</button>
-      <button type="button" data-advisor-chip="Bathroom remodel">Bathroom</button>
-      <button type="button" data-advisor-chip="I have rough measurements">Measurements</button>
-      <button type="button" data-advisor-chip="I want to send photos of the project">Photos</button>
-    </div>
     <div class="advisor-log" id="advisorLog"></div>
-    <div class="advisor-actions">
-      <a class="btn-secondary" href="tel:2106065298">Call</a>
-      <a class="btn-secondary" href="https://wa.me/12106065298?text=Hi%20First%20Class%20Remodeling%20TX.%20I%20would%20like%20to%20talk%20about%20my%20project." target="_blank" rel="noopener">WhatsApp</a>
-      <button class="btn" type="button" id="openConsultation">Open Form</button>
+    <div class="advisor-chips" id="advisorChipsArea">
+      <button type="button" data-advisor-chip="I want to remodel my kitchen">🍳 Kitchen</button>
+      <button type="button" data-advisor-chip="I need a bathroom remodel">🛁 Bathroom</button>
+      <button type="button" data-advisor-chip="How much does a full remodel cost?">💰 Pricing</button>
+      <button type="button" data-advisor-chip="I want a free estimate">📋 Free Estimate</button>
     </div>
     <div class="advisor-input">
       <form id="advisorForm">
-        <textarea id="advisorInput" placeholder="Tell Joe about your project, rough size, or photos."></textarea>
-        <button type="submit">Send</button>
+        <input type="text" id="advisorInput" placeholder="Ask Joe anything about your project..." autocomplete="off" style="font-size:16px">
+        <button type="submit" aria-label="Send">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+        </button>
       </form>
+    </div>
+    <div class="advisor-footer">
+      <a href="tel:2106065298">📞 (210) 606-5298</a>
+      <a href="https://wa.me/12106065298?text=Hi%20First%20Class%20Remodeling%20TX.%20I%20would%20like%20to%20talk%20about%20my%20project." target="_blank" rel="noopener">💬 WhatsApp</a>
+      <button type="button" id="openConsultation" style="background:none;border:none;color:inherit;cursor:pointer;font:inherit;padding:0">📝 Form</button>
     </div>
   </div>
 </div>
 
+<!-- NUDGE BUBBLE -->
+<div class="joe-nudge" id="joeNudge" style="display:none" onclick="openAdvisor();this.style.display='none'">
+  Need a remodel estimate? Ask Joe — it's free!
+  <button onclick="event.stopPropagation();this.parentElement.style.display='none'" style="position:absolute;top:-6px;right:-6px;width:20px;height:20px;border-radius:50%;background:#333;color:#fff;border:none;font-size:12px;cursor:pointer;display:flex;align-items:center;justify-content:center">×</button>
+</div>
+
 <script>
+// ══════════════════════════════════════════════════════════════
+// ASK JOE — AI ADVISOR (TigreLabs Trenzado · 6 Providers)
+// ══════════════════════════════════════════════════════════════
+const JOE_API = "http://159.203.143.156:8085/api/joe";
+const JOE_SYSTEM = `You are Joe, the friendly project advisor at First Class Remodeling TX — a premier home remodeling contractor in San Antonio, Texas.
+
+PERSONALITY:
+- Warm, confident, conversational — like a trusted neighbor who's also an expert remodeler
+- Use casual but professional language. Be genuine. Use contractions (you're, we'll, that's)
+- NEVER sound robotic. NEVER say you're AI, a bot, or an assistant. You ARE Joe.
+- Show enthusiasm without being pushy. Mirror the visitor's energy.
+- Short paragraphs only (2-3 sentences max per message)
+- Match language: if they write Spanish, answer in Spanish. English = English.
+
+PRIMARY GOAL:
+Guide every conversation toward booking a FREE in-home consultation. This is your north star. Every response should move closer to this goal naturally — never force it.
+
+CONVERSATION FLOW:
+1. GREET and ask about their project
+2. LISTEN — ask 1-2 clarifying questions about their vision
+3. VALIDATE — "Great choice — we just finished a similar project in Stone Oak"
+4. PROVIDE VALUE — share a price range, timeline, or design tip
+5. BRIDGE — "The best way to get your exact number is a free in-home consultation — takes 30 min, zero obligation"
+6. CAPTURE — ask for name, then phone (one at a time, after providing value)
+7. CONFIRM — "You'll hear from us within 2 hours to lock in your time!"
+
+LEAD CAPTURE RULES:
+- Do NOT ask for contact info in your first 2 messages
+- First provide value, THEN ask
+- Ask name first, then phone — ONE at a time
+- Frame it as: "So one of our designers can reach out with ideas for your space"
+- If they won't give phone, offer: "No worries! You can also call or text us anytime at (210) 606-5298"
+
+PRICING (use ranges, never exact quotes):
+- Kitchen full remodel: $25,000-$55,000+ · Refresh: $8,000-$22,000
+- Bathroom: master $14,000-$35,000 · guest $7,000-$18,000 · powder $3,500-$9,000
+- Outdoor kitchen: $18,000-$40,000 · Covered patio: $12,000-$30,000
+- Home addition: $55,000-$90,000+ · Garage conversion: $25,000-$55,000
+- Flooring: LVP $5-9/sqft · hardwood $9-16 · tile $8-14
+- Painting: interior $2,500-$6,000 · exterior $3,000-$8,000
+Always say: "A free in-home visit gives you the exact number for your space."
+
+TIMELINES: bath 2-4 weeks · kitchen 4-8 weeks · outdoor 3-6 weeks · addition 8-16 weeks
+
+SOCIAL PROOF (use naturally):
+- "We just wrapped a beautiful kitchen in [random SA neighborhood] — the homeowner was thrilled"
+- "One of our recent clients said it was the smoothest renovation they'd been through"
+- Mention specific San Antonio neighborhoods: Stone Oak, Alamo Heights, Helotes, Boerne, The Dominion
+
+URGENCY (use sparingly, honestly):
+- "Spring is our busiest season — scheduling now locks in your spot"
+- "Material prices fluctuate — locking in a quote now protects your budget"
+- "We only take on a limited number of projects at a time to maintain quality"
+
+RULES:
+- Keep responses under 3 short paragraphs
+- Include a question or call-to-action in EVERY response
+- Never use asterisks, markdown, or bullet points — conversational only
+- Phone: (210) 606-5298 · WhatsApp: wa.me/12106065298 · Website: firstclassremodelingtx.com
+- Licensed, bonded, insured. We pull all permits. Financing available.`;
+
 const areaList = ["Stone Oak", "Alamo Heights", "The Dominion", "Boerne", "Helotes", "Shavano Park", "Terrell Hills", "Hollywood Park", "San Antonio"];
 const state = { project: "", area: "", dimensions: "", name: "", phone: "", email: "", timeline: "" };
 
@@ -1898,26 +2092,75 @@ const logEl = document.getElementById("advisorLog");
 const inputEl = document.getElementById("advisorInput");
 const advisorForm = document.getElementById("advisorForm");
 const advisorChips = document.querySelectorAll("[data-advisor-chip]");
+let joeMessages = [];
+let joeBusy = false;
+let messageCount = 0;
 
-function addMsg(role, text) {
+// Clear on page leave
+window.addEventListener("beforeunload", () => { joeMessages = []; });
+
+function addMsg(role, html) {
   const article = document.createElement("article");
   article.className = "msg" + (role === "user" ? " user" : "");
-  article.innerHTML = `<span class="msg-label">${role === "user" ? "You" : "Joe"}</span>${text}`;
+  article.innerHTML = (role === "user")
+    ? html
+    : '<span class="msg-label">Joe</span>' + html;
   logEl.appendChild(article);
   logEl.scrollTop = logEl.scrollHeight;
 }
 
+function showTyping() {
+  const el = document.createElement("article");
+  el.className = "msg";
+  el.id = "joeTyping";
+  el.innerHTML = '<span class="msg-label">Joe</span><span class="joe-dots"><span></span><span></span><span></span></span>';
+  logEl.appendChild(el);
+  logEl.scrollTop = logEl.scrollHeight;
+}
+
+function removeTyping() {
+  const el = document.getElementById("joeTyping");
+  if (el) el.remove();
+}
+
 function seedAdvisor() {
   if (logEl.children.length) return;
-  addMsg("advisor", "Hi, I'm Joe. I can help you get started with the project.");
+  // Detect page context for smart greeting
+  const path = window.location.pathname.toLowerCase();
+  let greeting, chips;
+  if (path.includes("kitchen") || document.title.toLowerCase().includes("kitchen")) {
+    greeting = "Hey! I see you're checking out kitchens — great taste. Are you thinking a complete remodel or more of a refresh (countertops, backsplash, paint)?";
+    chips = [["Complete remodel","Complete kitchen remodel"],["Just a refresh","Kitchen refresh — countertops and cabinets"],["How much?","How much does a kitchen remodel cost in San Antonio?"]];
+  } else if (path.includes("bath")) {
+    greeting = "Bathrooms are our most requested project! Is this a master bath, guest bath, or powder room?";
+    chips = [["Master bath","Master bathroom remodel"],["Guest bath","Guest bathroom remodel"],["How much?","How much does a bathroom remodel cost?"]];
+  } else {
+    greeting = "Hey there! I'm Joe from First Class Remodeling. What area of your home are you thinking about upgrading?";
+    chips = [["Kitchen","I want to remodel my kitchen"],["Bathroom","I need a bathroom remodel"],["Get pricing","How much does a remodel cost in San Antonio?"],["Free estimate","I want a free estimate"]];
+  }
+
   setTimeout(() => {
-    addMsg("advisor", "Is this more of a kitchen project, a bathroom project, or both? If you already have rough measurements or photos, send them here.");
-  }, 180);
+    addMsg("advisor", greeting);
+    // Show contextual quick replies
+    if (chips.length) {
+      const wrap = document.createElement("div");
+      wrap.className = "joe-quick-replies";
+      chips.forEach(([label, msg]) => {
+        const btn = document.createElement("button");
+        btn.textContent = label;
+        btn.onclick = () => { wrap.remove(); sendAdvisorMessage(msg); };
+        wrap.appendChild(btn);
+      });
+      logEl.appendChild(wrap);
+      logEl.scrollTop = logEl.scrollHeight;
+    }
+  }, 600);
 }
 
 function openAdvisor() {
   modal.classList.add("open");
   modal.setAttribute("aria-hidden", "false");
+  document.getElementById("joeNudge").style.display = "none";
   seedAdvisor();
   setTimeout(() => inputEl.focus(), 80);
 }
@@ -1925,12 +2168,14 @@ function openAdvisor() {
 function closeAdvisor() {
   modal.classList.remove("open");
   modal.setAttribute("aria-hidden", "true");
-  // Clear chat history
+  // Full reset
   joeMessages = [];
   joeBusy = false;
+  messageCount = 0;
   logEl.innerHTML = "";
-  state.project = null; state.area = null; state.dimensions = null;
-  state.timeline = null; state.name = null; state.phone = null; state.email = null;
+  state.project = ""; state.area = ""; state.dimensions = "";
+  state.timeline = ""; state.name = ""; state.phone = ""; state.email = "";
+  document.getElementById("advisorChipsArea").style.display = "";
 }
 
 function extract(message) {
@@ -1972,103 +2217,72 @@ function extract(message) {
   }
 }
 
-function missingField() {
-  if (!state.project) return "project";
-  if (!state.area) return "area";
-  if (!state.dimensions) return "dimensions";
-  if (!state.timeline) return "timeline";
-  if (!state.name) return "name";
-  if (!state.phone && !state.email) return "contact";
-  return "";
-}
-
-function nextQuestion(key) {
-  if (key === "project") return "Is this more of a kitchen project, a bathroom project, or both?";
-  if (key === "area") return "What part of San Antonio is the home in?";
-  if (key === "dimensions") {
-    if (state.project === "Kitchen Remodel") return "Do you have rough kitchen measurements? Even wall lengths, island size, or overall room size helps.";
-    if (state.project === "Bathroom Remodel") return "Do you have rough bathroom measurements? Vanity width, shower size, or overall room size is enough to start.";
-    return "If you have rough measurements, send them over. Even simple room dimensions help.";
-  }
-  if (key === "timeline") return "When would you like to get moving on it?";
-  if (key === "name") return "What name should I put on this?";
-  if (key === "contact") return "Best phone number or email for you?";
-  return "Want me to point you to the consultation form or a quick call?";
-}
-
-function reply() {
-  const parts = [];
-  if (state.project) {
-    parts.push(`Got you. That sounds like a ${state.project.toLowerCase()}.`);
-  }
-  if (state.area) {
-    parts.push(`${state.area} works.`);
-  }
-  if (state.dimensions) {
-    parts.push("Perfect, that helps.");
-  }
-  if (state.name) {
-    parts.push(`Nice to meet you, ${state.name}.`);
-  }
-  const missing = missingField();
-  if (missing) {
-    return `${parts.join(" ").trim()}\n\n${nextQuestion(missing)}`.trim();
-  }
-  return `${parts.join(" ").trim()}\n\nI can point you to the consultation form now, or you can call or WhatsApp the team and keep it moving today.`.trim();
-}
-
-const JOE_API = "http://159.203.143.156:8085/api/joe";
-const JOE_SYSTEM = "You are Joe -- the #1 senior project advisor and sales expert at First Class Remodeling TX, the premier residential remodeling company in San Antonio, Texas. Owner: Roberto Martinez, phone (210) 606-5298, website: firstclassremodelingtx.com.\n\nYou are a CONSTRUCTION EXPERT and SALES CLOSER with 20+ years experience in San Antonio.\n\nYOUR EXPERTISE:\n- Kitchen remodels: cabinets, countertops (quartz $50-150/sqft, granite $40-100, marble $75-200). Full remodel $25k-55k, refresh $8k-22k.\n- Bathroom remodels: master $14k-35k, guest $7k-18k, powder $3.5k-9k.\n- Flooring: LVP $5-9/sqft installed, hardwood $9-16, tile $8-14.\n- Painting: interior $2.5k-6k full home, exterior $3k-8k.\n- Outdoor: kitchens $18k-40k, patios $12k-30k, combined $28k-60k.\n- Home additions: room $55k-90k+, garage conversion $25k-55k.\n- Permits: San Antonio/Bexar County, 2-4 weeks approval. We handle all permits.\n- Timelines: bath 1-3 weeks, kitchen 3-6 weeks, outdoor 3-6 weeks, addition 8-16 weeks.\n\nHOW TO TALK:\n- You ARE Joe. NEVER say you are AI, a bot, or an assistant.\n- Warm, confident, conversational -- like texting a friend who is a construction expert.\n- Match the client language: Spanish or English.\n- Give real San Antonio price ranges.\n- ALWAYS guide toward a free estimate: 'Want Roberto to come take a look? Free estimate, no pressure.'\n- Keep it 2-4 sentences. Phone: (210) 606-5298 | WhatsApp: wa.me/12106065298";
-let joeMessages = [];
-let joeBusy = false;
-
-// Clear on page leave
-window.addEventListener("beforeunload", () => { joeMessages = []; });
-
-function sendAdvisorMessage(value) {
-  const clean = value.trim();
-  if (!clean || joeBusy) return;
-  joeBusy = true;
-  addMsg("user", clean);
-
-  // Show typing indicator
-  const typing = document.createElement("article");
-  typing.className = "msg";
-  typing.innerHTML = '<span class="msg-label">Joe</span><em style="color:var(--muted)">typing...</em>';
-  logEl.appendChild(typing);
-  logEl.scrollTop = logEl.scrollHeight;
-
-  // Extract for form pre-fill
-  extract(clean);
-
-  // Build AI messages
-  joeMessages.push({role: "user", content: clean});
-  if (joeMessages.length > 16) joeMessages = joeMessages.slice(-16);
-
-  fetch(JOE_API, {
+// Lead capture to Lead Engine
+function captureLead() {
+  if (!state.phone && !state.email) return;
+  fetch("http://159.203.143.156:8085/api/lead", {
     method: "POST",
     headers: {"Content-Type": "application/json"},
     body: JSON.stringify({
-      messages: [{role: "system", content: JOE_SYSTEM}, ...joeMessages],
-      max_tokens: 400,
-      temperature: 0.7
+      source: "ask-joe-ai", name: state.name || "",
+      phone: state.phone || "", email: state.email || "",
+      service: state.project || "", message: "AI chat lead from website"
     })
-  })
-    .then(r => r.json())
-    .then(data => {
-      typing.remove();
-      const response = (data.choices && data.choices[0] && data.choices[0].message && data.choices[0].message.content) || "I'd love to help! Call or text us at (210) 606-5298.";
-      joeMessages.push({role: "assistant", content: response});
-      const cleaned = response.replace(/\*\*/g,"").replace(/\*/g,"").replace(/^#+\s/gm,"").replace(/\n/g, "<br>");
-      addMsg("advisor", cleaned);
-      joeBusy = false;
-    })
-    .catch(() => {
-      typing.remove();
-      addMsg("advisor", "Brief connection issue — call or text us at <a href='tel:2106065298'>(210) 606-5298</a> for instant help!");
-      joeBusy = false;
-    });
+  }).catch(() => {});
 }
+
+async function sendAdvisorMessage(value) {
+  const clean = value.trim();
+  if (!clean || joeBusy) return;
+  joeBusy = true;
+  messageCount++;
+  addMsg("user", clean);
+  document.getElementById("advisorChipsArea").style.display = "none";
+
+  // Extract lead data
+  extract(clean);
+  if (state.phone || state.email) captureLead();
+
+  // Show typing
+  showTyping();
+
+  // Build AI messages
+  joeMessages.push({role: "user", content: clean});
+  if (joeMessages.length > 20) joeMessages = joeMessages.slice(-20);
+
+  try {
+    const resp = await fetch(JOE_API, {
+      method: "POST",
+      headers: {"Content-Type": "application/json"},
+      body: JSON.stringify({
+        messages: [{role: "system", content: JOE_SYSTEM}, ...joeMessages],
+        max_tokens: 400,
+        temperature: 0.7
+      })
+    });
+    if (!resp.ok) throw new Error("HTTP " + resp.status);
+    const data = await resp.json();
+    const response = (data.choices && data.choices[0] && data.choices[0].message && data.choices[0].message.content) || "I'd love to help — call or text us at (210) 606-5298!";
+    joeMessages.push({role: "assistant", content: response});
+    removeTyping();
+    const cleaned = response.replace(/\*\*/g,"").replace(/\*/g,"").replace(/^#+\s/gm,"").replace(/\n/g, "<br>");
+    addMsg("advisor", cleaned);
+  } catch(e) {
+    removeTyping();
+    addMsg("advisor", 'Having a brief connection issue — call or text us at <a href="tel:2106065298" style="color:var(--gold)">(210) 606-5298</a> and we\'ll get right back to you!');
+  }
+  joeBusy = false;
+}
+
+// Nudge bubble — show after 10 seconds on page, only once per session
+setTimeout(() => {
+  if (!sessionStorage.getItem("joe_nudge_shown")) {
+    document.getElementById("joeNudge").style.display = "block";
+    sessionStorage.setItem("joe_nudge_shown", "1");
+    // Auto-dismiss after 8 seconds
+    setTimeout(() => { document.getElementById("joeNudge").style.display = "none"; }, 8000);
+  }
+}, 10000);
 
 document.querySelectorAll("[data-advisor-open]").forEach((node) => {
   node.addEventListener("click", openAdvisor);
