@@ -2202,7 +2202,7 @@ function extract(message) {
 // Lead capture to Lead Engine
 function captureLead() {
   if (!state.phone && !state.email) return;
-  fetch("https://eltigrelabs.com/api/joe/lead", {
+  fetch("https://leads.eltigrelabs.com/webhook/lead", {
     method: "POST",
     headers: {"Content-Type": "application/json"},
     body: JSON.stringify({
@@ -2338,6 +2338,20 @@ async function handleContactForm(event) {
     if (!response.ok || (result && result.success === "false")) {
       throw new Error((result && result.message) || "Unable to send right now.");
     }
+    // Also send to lead engine pipeline (Telegram alert + auto-reply + CRM)
+    const data = Object.fromEntries(payload.entries());
+    fetch("https://leads.eltigrelabs.com/webhook/lead", {
+      method: "POST",
+      headers: {"Content-Type": "application/json"},
+      body: JSON.stringify({
+        source: "contact-form",
+        name: data["full-name"] || data["name"] || "",
+        email: data["email"] || "",
+        phone: data["phone"] || "",
+        service: data["service"] || "",
+        message: data["message"] || ""
+      })
+    }).catch(() => {});
     form.reset();
     status.textContent = "Request sent. If you want the fastest response, call or WhatsApp the team now.";
     btn.textContent = "Sent";
